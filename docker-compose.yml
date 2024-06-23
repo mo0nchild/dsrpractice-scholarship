@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  scholarship.api.users:
+    image: ${DOCKER_REGISTRY-}scholarshipapiusers
+    build:
+      context: .
+      dockerfile: Scholarship.Systems/Scholarship.Api.Users/Dockerfile
+
+  scholarship.api.loans:
+    image: ${DOCKER_REGISTRY-}scholarshipapiloans
+    build:
+      context: .
+      dockerfile: Scholarship.Systems/Scholarship.Api.Loans/Dockerfile
+

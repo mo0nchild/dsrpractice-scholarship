@@ -1,0 +1,10 @@
+bin/
+obj/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+postgres-data/
+minio-data/
+.vs/
+.vscode/
