@@ -24,7 +24,9 @@ namespace Scholarship.Database.Users.Entities
         public string Name { get; set; } = string.Empty;
 
         public string Password { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
+
+        public int RoleId { get; set; } = default!;
+        public virtual UserRole Role { get; set; } = default!;
 
         public virtual RefreshToken RefreshToken { get; set; } = new();
     }

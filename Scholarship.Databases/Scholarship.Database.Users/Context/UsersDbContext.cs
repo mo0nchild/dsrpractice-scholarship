@@ -11,6 +11,7 @@ namespace Scholarship.Database.Users.Context
 {
     public class UsersDbContext : DbContext
     {
+        public virtual DbSet<UserRole> UserRoles { get; set; } = default!;
         public virtual DbSet<UserInfo> UserInfos { get; set; } = default!;
         public virtual DbSet<RefreshToken> RefreshTokens { get; set; } = default!;
 

@@ -12,7 +12,7 @@ using Scholarship.Database.Loans.Context;
 namespace Scholarship.Database.Loans.Migrations
 {
     [DbContext(typeof(LoansDbContext))]
-    [Migration("20240623012341_Initialization")]
+    [Migration("20240627021713_Initialization")]
     partial class Initialization
     {
         /// <inheritdoc />
@@ -45,10 +45,20 @@ namespace Scholarship.Database.Loans.Migrations
                     b.Property<DateTime?>("CloseTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("CreditorFIO")
+                    b.Property<string>("CreditorName")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("CreditorPatronymic")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("CreditorSurname")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<double>("MoneyAmount")
                         .HasColumnType("double precision");

@@ -1,26 +1,19 @@
-﻿using System;
+﻿using AutoMapper;
+using Scholarship.Database.Loans.Entities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Scholarship.Database.Loans.Configurations;
 
-namespace Scholarship.Database.Loans.Entities
+namespace Scholarship.Service.Loans.Models
 {
-    [EntityTypeConfiguration(typeof(LoanConfiguration))]
-    public class LoanInfo : object
+    public class RewriteLoanModel : object
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int Id { get; set; }
+        public Guid Uuid { get; set; } = Guid.Empty;
 
-        [Required]
-        public virtual Guid Uuid { get; set; } = Guid.NewGuid();
-
-        [Required]
-        public virtual Guid ClientUuid { get; set; } = Guid.Empty;
+        public Guid ClientUuid { get; set; } = Guid.Empty;
         public double MoneyAmount { get; set; } = default!;
 
         public DateTime OpenTime { get; set; } = default!;
@@ -31,5 +24,10 @@ namespace Scholarship.Database.Loans.Entities
         public string CreditorSurname { get; set; } = string.Empty;
         public string CreditorName { get; set; } = string.Empty;
         public string CreditorPatronymic { get; set; } = string.Empty;
+    }
+    public class RewriteLoanModelProfile : Profile
+    {
+        public RewriteLoanModelProfile() : base() => this.CreateMap<RewriteLoanModel, LoanInfo>()
+            .ReverseMap();
     }
 }

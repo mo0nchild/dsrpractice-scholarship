@@ -2,24 +2,18 @@
 
 using FluentValidation;
 
-public class ModelValidator<T> : IModelValidator<T> where T : class
+public class ModelValidator<TModel> : IModelValidator<TModel> where TModel : class
 {
-    private readonly IValidator<T> validator;
-
-    public ModelValidator(IValidator<T> validator)
-    {
-        this.validator = validator;
-    }
-    public void Check(T model)
+    private readonly IValidator<TModel> validator;
+    public ModelValidator(IValidator<TModel> validator) : base() => this.validator = validator;
+    public void Check(TModel model)
     {
         var result = validator.Validate(model);
-        if (!result.IsValid)
-            throw new ValidationException(result.Errors);
+        if (!result.IsValid) throw new ValidationException(result.Errors);
     }
-    public async Task CheckAsync(T model)
+    public async Task CheckAsync(TModel model)
     {
         var result = await validator.ValidateAsync(model);
-        if (!result.IsValid)
-            throw new ValidationException(result.Errors);
+        if (!result.IsValid) throw new ValidationException(result.Errors);
     }
 }

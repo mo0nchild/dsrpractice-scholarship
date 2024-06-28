@@ -12,8 +12,7 @@ namespace Scholarship.Services.Tokens
         {
             collection.AddSingleton<IConfigureOptions<TokenOptions>>(provider =>
             {
-                var configuration = provider.GetService<IConfiguration>();
-                return new ConfigureTokenOptions(configuration!, section);
+                return new ConfigureTokenOptions(provider.GetService<IConfiguration>()!, section);
             });
             collection.AddTransient<ITokenService, TokenService>();
             return Task.FromResult(collection);

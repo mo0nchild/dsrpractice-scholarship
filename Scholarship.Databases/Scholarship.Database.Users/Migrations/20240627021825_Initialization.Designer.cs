@@ -12,7 +12,7 @@ using Scholarship.Database.Users.Context;
 namespace Scholarship.Database.Users.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20240623015635_Initialization")]
+    [Migration("20240627021825_Initialization")]
     partial class Initialization
     {
         /// <inheritdoc />
@@ -83,10 +83,8 @@ namespace Scholarship.Database.Users.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("Uuid")
                         .HasColumnType("uuid");
@@ -99,10 +97,36 @@ namespace Scholarship.Database.Users.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
+                    b.HasIndex("RoleId");
+
                     b.HasIndex("Uuid")
                         .IsUnique();
 
                     b.ToTable("UserInfo", "public");
+                });
+
+            modelBuilder.Entity("Scholarship.Database.Users.Entities.UserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("UserRole", "public");
                 });
 
             modelBuilder.Entity("Scholarship.Database.Users.Entities.RefreshToken", b =>
@@ -118,8 +142,24 @@ namespace Scholarship.Database.Users.Migrations
 
             modelBuilder.Entity("Scholarship.Database.Users.Entities.UserInfo", b =>
                 {
+                    b.HasOne("Scholarship.Database.Users.Entities.UserRole", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Scholarship.Database.Users.Entities.UserInfo", b =>
+                {
                     b.Navigation("RefreshToken")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Scholarship.Database.Users.Entities.UserRole", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
