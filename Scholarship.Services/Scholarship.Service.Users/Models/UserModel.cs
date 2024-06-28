@@ -19,6 +19,7 @@ namespace Scholarship.Service.Users.Models
 
     public class UserModelProfile : Profile
     {
-        public UserModelProfile() : base() => base.CreateMap<UserInfo, UserModel>().ReverseMap();
+        public UserModelProfile() : base() => base.CreateMap<UserInfo, UserModel>()
+            .ForMember(item => item.Role, options => options.MapFrom(p => p.Role.Name));
     }
 }

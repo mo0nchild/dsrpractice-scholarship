@@ -17,6 +17,7 @@ namespace Scholarship.Service.Users.Models
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
+        public string RoleName { get; set; } = string.Empty;
     }
     public class RegistrationModelProfile : Profile
     {
@@ -34,6 +35,8 @@ namespace Scholarship.Service.Users.Models
                 {
                     Uuid = Guid.NewGuid()
                 }));
+            base.CreateMap<RegistrationModel, UserModel>()
+                .ForMember(item => item.Role, options => options.MapFrom(p => p.RoleName));
         }
     }
     public class RegistrationModelValidator : AbstractValidator<RegistrationModel>
@@ -46,12 +49,20 @@ namespace Scholarship.Service.Users.Models
                 .Must(item =>
                 {
                     using var context = contextFactory.CreateDbContext();
-                    var found = context.UserInfos.FirstOrDefault(op => op.Email == item);
-                    return found == null;
+                    var profile = context.UserInfos.FirstOrDefault(op => op.Email == item);
+                    return profile == null;
                 }).WithMessage("Пользователь уже зарегистрирован");
             base.RuleFor(item => item.Name)
                 .NotEmpty().WithMessage("Значение имени не может быть пустым")
                 .Length(5, 50).WithMessage("Длина имени между 5 и 50 символами");
+            base.RuleFor(item => item.RoleName)
+                .NotEmpty().WithMessage("Значение роли не может быть пустым")
+                .Must(item =>
+                {
+                    using var context = contextFactory.CreateDbContext();
+                    var roleFound = context.UserRoles.FirstOrDefault(op => op.Name == item);
+                    return roleFound != null;
+                }).WithMessage("Роль пользователя не найдена");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Scholarship.Database.Authorizations;
+﻿using MassTransit;
 using Scholarship.Database.Loans;
 using Scholarship.Service.Loans;
 using Scholarship.Shared.Commons.Configurations;
@@ -23,6 +23,19 @@ namespace Scholarship.Api.Loans.Configurations
             {
                 options.AddPolicy("Admin", item => item.RequireClaim(ClaimTypes.Role, IdentityRoleScopes.Admin));
                 options.AddPolicy("User", item => item.RequireClaim(ClaimTypes.Role, IdentityRoleScopes.User));
+            });
+            collection.AddMassTransit(options =>
+            {
+                options.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq", "/", host =>
+                    {
+                        host.Username("admin");
+                        host.Password("1234567890");
+                    });
+                    cfg.ConfigureEndpoints(context);
+                    cfg.UseRawJsonSerializer();
+                });
             });
             await collection.AddModelsValidators();
             await collection.AddModelsMappers();

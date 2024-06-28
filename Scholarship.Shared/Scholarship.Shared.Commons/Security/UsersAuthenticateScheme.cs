@@ -20,8 +20,8 @@ namespace Scholarship.Shared.Commons.Security
         private readonly IHttpClientFactory httpFactory = default!;
         public UsersAuthenticateScheme(IOptionsMonitor<UsersAuthenticateSchemeOptions> options, 
             ILoggerFactory logger,
-            UrlEncoder encoder, ISystemClock clock, IHttpClientFactory httpFactory) 
-            : base(options, logger, encoder, clock)
+            UrlEncoder encoder, IHttpClientFactory httpFactory) 
+            : base(options, logger, encoder)
         {
             this.httpFactory = httpFactory;
         }

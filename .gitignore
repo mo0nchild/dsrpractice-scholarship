@@ -5,6 +5,9 @@ project.fragment.lock.json
 artifacts/
 
 postgres-data/
+services-data/
 minio-data/
+rabbitmq-data/
 .vs/
 .vscode/
+.github/

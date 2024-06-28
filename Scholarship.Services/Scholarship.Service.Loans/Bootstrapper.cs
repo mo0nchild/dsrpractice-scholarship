@@ -7,7 +7,7 @@ namespace Scholarship.Service.Loans
     {
         public static Task<IServiceCollection> AddLoanService(this IServiceCollection collection)
         {
-            collection.AddTransient<ILoanService, LoanService>();
+            collection.AddScoped<ILoanService, LoanService>();
             return Task.FromResult(collection);
         }
     }

@@ -21,10 +21,14 @@ namespace Scholarship.Database.Users.Configurations
             builder.HasIndex(item => item.Email).IsUnique();
 
             builder.Property(item => item.Name).HasMaxLength(50);
-            builder.Property(item => item.Role).HasMaxLength(50);
 
             builder.Property(item => item.Email).HasMaxLength(100);
             builder.Property(item => item.Password).HasMaxLength(255);
+
+            builder.HasOne(item => item.Role).WithMany(item => item.Users)
+                .HasPrincipalKey(item => item.Id)
+                .HasForeignKey(item => item.RoleId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

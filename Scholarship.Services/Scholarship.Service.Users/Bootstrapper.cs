@@ -17,7 +17,7 @@ namespace Scholarship.Service.Users
     {
         public static Task<IServiceCollection> AddUsersService(this IServiceCollection collection)
         {
-            collection.AddTransient<IUserService, UserService>();
+            collection.AddScoped<IUserService, UserService>();
             return Task.FromResult(collection);
         }
     }

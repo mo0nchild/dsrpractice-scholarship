@@ -8,7 +8,11 @@ namespace Scholarship.Shared.Commons.Security
 {
     public static class IdentityRoleScopes : object
     {
-        public const string User = "User";
-        public const string Admin = "Admin";
+        private static readonly Dictionary<string, string> IdentityRoles = new()
+        {
+            ["User"] = "User", ["Admin"] = "Admin",
+        };
+        public static string User { get => IdentityRoleScopes.IdentityRoles["User"]; }
+        public static string Admin { get => IdentityRoleScopes.IdentityRoles["Admin"]; }
     }
 }

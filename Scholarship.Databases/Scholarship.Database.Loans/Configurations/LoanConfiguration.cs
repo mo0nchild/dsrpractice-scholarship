@@ -20,7 +20,10 @@ namespace Scholarship.Database.Loans.Configurations
             builder.HasIndex(item => item.Uuid).IsUnique();
 
             builder.Property(item => item.CloseTime).IsRequired(false);
-            builder.Property(item => item.CreditorFIO).HasMaxLength(255);
+
+            builder.Property(item => item.CreditorSurname).HasMaxLength(100);
+            builder.Property(item => item.CreditorName).HasMaxLength(100);
+            builder.Property(item => item.CreditorPatronymic).HasMaxLength(100);
         }
     }
 }

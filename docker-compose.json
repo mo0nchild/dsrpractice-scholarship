@@ -18,7 +18,14 @@
 					"ipv4_address": "172.24.0.4"
 				}
 			},
-			"depends_on": [ "rabbitmq", "postgres" ],
+			"depends_on": {
+				"postgres": {
+					"condition": "service_healthy"
+				},
+				"rabbitmq": {
+					"condition": "service_started"
+				}
+			},
 			"restart": "on-failure:10"
 		},
 		"scholarship.loans": {
@@ -38,19 +45,15 @@
 					"ipv4_address": "172.24.0.5"
 				}
 			},
-			"depends_on": [ "rabbitmq", "postgres" ],
-			"restart": "on-failure:10"
-		},
-		"rabbitmq": {
-			"image": "rabbitmq:3.10.7-management",
-			"container_name": "rabbitmq",
-			"restart": "always",
-			"environment": {
-				"RABBITMQ_DEFAULT_USER": "admin",
-				"RABBITMQ_DEFAULT_PASS": "1234567890"
+			"depends_on": {
+				"postgres": {
+					"condition": "service_healthy"
+				},
+				"rabbitmq": {
+					"condition": "service_started"
+				}
 			},
-			"ports": [ "15672:15672" ],
-			"volumes": [ "./rabbitmq-data:/var/lib/rabbitmq" ]
+			"restart": "on-failure:10"
 		},
 		"postgres": {
 			"image": "postgres:latest",
@@ -64,10 +67,34 @@
 			"networks": {
 				"scholarship-network": {
 					"aliases": [ "postgres" ],
-					"ipv4_address": "172.24.0.2"
+					"ipv4_address": "172.24.0.3"
 				}
 			},
+			"healthcheck": {
+				"test": ["CMD-SHELL", "pg_isready -U postgres -d scholarship.loans"],
+				"interval": "10s",
+				"timeout": "5s",
+				"retries": 5,
+				"start_period": "10s"
+			},
 			"volumes": [ "./postgres-data:/var/lib/postgresql/data" ]
+		},
+		"rabbitmq": {
+			"image": "rabbitmq:3.10.7-management",
+			"container_name": "rabbitmq",
+			"restart": "always",
+			"environment": {
+				"RABBITMQ_DEFAULT_USER": "admin",
+				"RABBITMQ_DEFAULT_PASS": "1234567890"
+			},
+			"ports": [ "15672:15672" ],
+			"volumes": [ "./rabbitmq-data:/var/lib/rabbitmq" ],
+			"networks": {
+				"scholarship-network": {
+					"aliases": [ "rabbitmq" ],
+					"ipv4_address": "172.24.0.2"
+				}
+			}
 		}
 	},
 	"networks": {

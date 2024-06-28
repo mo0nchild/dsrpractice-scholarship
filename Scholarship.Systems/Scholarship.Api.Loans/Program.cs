@@ -1,4 +1,5 @@
 
+using Microsoft.Extensions.Configuration;
 using Scholarship.Api.Loans.Configurations;
 using Scholarship.Database.Loans;
 using Scholarship.Service.Loans;

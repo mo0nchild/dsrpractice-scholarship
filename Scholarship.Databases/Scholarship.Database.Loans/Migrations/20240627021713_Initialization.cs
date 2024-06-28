@@ -28,7 +28,9 @@ namespace Scholarship.Database.Loans.Migrations
                     OpenTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     BeforeTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CloseTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreditorFIO = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
+                    CreditorSurname = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    CreditorName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    CreditorPatronymic = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
