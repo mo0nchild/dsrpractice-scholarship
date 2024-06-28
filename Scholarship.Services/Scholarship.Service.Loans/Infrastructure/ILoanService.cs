@@ -12,7 +12,8 @@ namespace Scholarship.Service.Loans.Infrastructure
         public Task<List<LoanModel>> GetLoansFromUuid(Guid clientUuid);
         public Task CreateLoan(CreateLoanModel loanInfo);
         public Task CloseLoan(CloseLoanModel loanInfo);
-
+        public Task<bool> CheckLoanOwner(Guid loanUuid, Guid userUuid);
+        
         public Task<List<LoanModel>> GetAllLoans();
         public Task RewriteAllLoans(List<RewriteLoanModel> loansList);
     }

@@ -23,14 +23,14 @@ namespace Scholarship.Api.Users.Controllers
             (this.userService, this.mapper) = (userService, mapper);
         }
         [Route("add"), HttpPost]
-        [ProducesResponseType(typeof(object), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IdentityModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> RegistrationHandler([FromBody] RegistrationModel model)
         {
             return this.Ok(await this.userService.Registration(model));
         }
         [Route("login"), HttpGet]
-        [ProducesResponseType(typeof(object), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IdentityModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> LoginHandler([FromQuery] CredentialsModel model)
         {
@@ -39,7 +39,7 @@ namespace Scholarship.Api.Users.Controllers
             return this.Ok(data);
         }
         [Route("info"), HttpGet]
-        [ProducesResponseType(typeof(object), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UserModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetInfoHandler([FromQuery] string token)
         {
@@ -48,7 +48,7 @@ namespace Scholarship.Api.Users.Controllers
             return this.Ok(data);
         }
         [Route("refresh"), HttpGet]
-        [ProducesResponseType(typeof(object), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IdentityModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetRefreshHandler([FromQuery] string token)
         {

@@ -25,7 +25,14 @@ namespace Scholarship.Service.Loans.Models
                     using var dbContext = contextFactory.CreateDbContext();
                     return dbContext.Loans.Any(p => p.Uuid == item);
                 })
-                .WithMessage("Запись займа не найдена");
+                .WithMessage("Запись займа не найдена")
+                .Must((model, item) =>
+                {
+                    using var dbContext = contextFactory.CreateDbContext();
+                    var record = dbContext.Loans.FirstOrDefault(item => item.Uuid == model.LoanUuid);
+                    return record == null ? true : record.CloseTime == null;
+                })
+                .WithMessage("Запись о займе уже закрыта");
             this.RuleFor(item => item.CloseTime)
                 .NotEmpty().WithMessage("Необходимо значение даты закрытия")
                 .Must((model, item) =>
@@ -33,8 +40,7 @@ namespace Scholarship.Service.Loans.Models
                     using var dbContext = contextFactory.CreateDbContext();
                     var record = dbContext.Loans.FirstOrDefault(item => item.Uuid == model.LoanUuid);
 
-                    if (record == null) return true;
-                    return record.BeforeTime <= item && record.OpenTime <= item;
+                    return record == null ? true : record.BeforeTime <= item && record.OpenTime <= item;
                 })
                 .WithMessage("Дата закрытия должна быть позже даты открытия");
         }

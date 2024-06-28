@@ -28,6 +28,15 @@ namespace Scholarship.Service.Loans.Infrastructure
             this.createLoanValidator = createLoanValidator;
             this.closeLoanValidator = closeLoanValidator;
         }
+        public async Task<bool> CheckLoanOwner(Guid loanUuid, Guid userUuid)
+        {
+            using var dbContext = await this.contextFactory.CreateDbContextAsync();
+
+            var loan = await dbContext.Loans.FirstOrDefaultAsync(item => item.Uuid == loanUuid);
+            return loan == null 
+                ? throw new ProcessException("Запись о займе не найдена")
+                : loan.ClientUuid == userUuid;
+        }
         public async Task CloseLoan(CloseLoanModel loanInfo)
         {
             await this.closeLoanValidator.CheckAsync(loanInfo);

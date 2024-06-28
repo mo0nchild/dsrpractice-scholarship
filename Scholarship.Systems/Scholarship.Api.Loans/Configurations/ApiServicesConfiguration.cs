@@ -21,22 +21,14 @@ namespace Scholarship.Api.Loans.Configurations
                 });
             collection.AddAuthorization(options =>
             {
-                options.AddPolicy("Admin", item => item.RequireClaim(ClaimTypes.Role, IdentityRoleScopes.Admin));
-                options.AddPolicy("User", item => item.RequireClaim(ClaimTypes.Role, IdentityRoleScopes.User));
-            });
-            collection.AddMassTransit(options =>
-            {
-                options.UsingRabbitMq((context, cfg) =>
+                options.AddPolicy("User", item => item.RequireClaim(ClaimTypes.Role, new string[]
                 {
-                    cfg.Host("rabbitmq", "/", host =>
-                    {
-                        host.Username("admin");
-                        host.Password("1234567890");
-                    });
-                    cfg.ConfigureEndpoints(context);
-                    cfg.UseRawJsonSerializer();
-                });
+                    IdentityRoleScopes.Admin,
+                    IdentityRoleScopes.User
+                }));
+                options.AddPolicy("Admin", item => item.RequireClaim(ClaimTypes.Role, IdentityRoleScopes.Admin));
             });
+            await collection.AddTransitServices(configuration);
             await collection.AddModelsValidators();
             await collection.AddModelsMappers();
 

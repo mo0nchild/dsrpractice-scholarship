@@ -52,13 +52,13 @@ namespace Scholarship.Service.Loans.Models
                 .WithMessage("Дата начала должна быть раньше ориентировочной даты");
             this.RuleFor(item => item.CreditorSurname)
                 .NotEmpty().WithMessage("Необходимо указать фамилию кредитора")
-                .Length(5, 100).WithMessage("Длина фамилии кредитора от 5 до 100 символов");
+                .Length(3, 100).WithMessage("Длина фамилии кредитора от 3 до 100 символов");
             this.RuleFor(item => item.CreditorName)
                 .NotEmpty().WithMessage("Необходимо указать имя кредитора")
-                .Length(5, 100).WithMessage("Длина имени кредитора от 5 до 100 символов");
+                .Length(3, 100).WithMessage("Длина имени кредитора от 3 до 100 символов");
             this.RuleFor(item => item.CreditorPatronymic)
                 .NotEmpty().WithMessage("Необходимо указать отчество кредитора")
-                .Length(5, 100).WithMessage("Длина отчества кредитора от 5 до 100 символов");
+                .Length(3, 100).WithMessage("Длина отчества кредитора от 3 до 100 символов");
         }
     }
 }

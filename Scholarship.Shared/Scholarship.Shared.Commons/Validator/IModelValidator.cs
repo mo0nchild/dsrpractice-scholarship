@@ -1,7 +1,7 @@
 ﻿namespace Scholarship.Shared.Commons.Validator;
 
-public interface IModelValidator<T> where T : class
+public interface IModelValidator<TModel> where TModel : class
 {
-    void Check(T model);
-    Task CheckAsync(T model);
+    public void Check(TModel model);
+    public Task CheckAsync(TModel model);
 }
