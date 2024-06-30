@@ -37,8 +37,8 @@ namespace Scholarship.Shared.Commons.Middlewares
 
             var result = new
             {
-                message = $"Возникло исключение при запросе: {exception.GetType().Name}",
-                details = exception.Message
+                title = $"Возникло исключение при запросе: {exception.GetType().Name}",
+                errors = exception.Message
             };
             return context.Response.WriteAsync(JsonConvert.SerializeObject(result));
         }

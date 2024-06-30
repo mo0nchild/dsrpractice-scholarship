@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Scholarship.Api.Users.Models;
 using Scholarship.Database.Users.Entities;
 using Scholarship.Service.Users.Infrastructure;
 using Scholarship.Service.Users.Models;
+using Scholarship.Shared.Commons.Responses;
 using System.Net;
 using System.Security.Claims;
 
@@ -25,17 +27,18 @@ namespace Scholarship.Api.Users.Controllers
         [Route("add"), HttpPost]
         [ProducesResponseType(typeof(IdentityModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> RegistrationHandler([FromBody] RegistrationModel model)
+        public async Task<IActionResult> RegistrationHandler([FromBody] RegistrationRequest request)
         {
+            var model = this.mapper.Map<RegistrationModel>(request);
             return this.Ok(await this.userService.Registration(model));
         }
         [Route("login"), HttpGet]
         [ProducesResponseType(typeof(IdentityModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> LoginHandler([FromQuery] CredentialsModel model)
+        public async Task<IActionResult> LoginHandler([FromQuery] CredentialsModel request)
         {
-            var data = await this.userService.GetTokensByCredentials(model);
-            if (data == null) return this.BadRequest("Невозможно получить ответ");
+            var data = await this.userService.GetTokensByCredentials(request);
+            if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Невозможно получить ответ" });
             return this.Ok(data);
         }
         [Route("info"), HttpGet]
@@ -44,7 +47,7 @@ namespace Scholarship.Api.Users.Controllers
         public async Task<IActionResult> GetInfoHandler([FromQuery] string token)
         {
             var data = await this.userService.GetUserByAccess(token);
-            if (data == null) return this.BadRequest("Невозможно получить ответ");
+            if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Невозможно получить ответ" });
             return this.Ok(data);
         }
         [Route("refresh"), HttpGet]
@@ -53,7 +56,7 @@ namespace Scholarship.Api.Users.Controllers
         public async Task<IActionResult> GetRefreshHandler([FromQuery] string token)
         {
             var data = await this.userService.GetTokensByRefresh(token);
-            if (data == null) return this.BadRequest("Невозможно получить ответ");
+            if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Невозможно получить ответ" });
             return this.Ok(data);
         }
     }

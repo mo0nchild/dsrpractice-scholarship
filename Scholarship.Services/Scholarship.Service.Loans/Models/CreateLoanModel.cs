@@ -17,8 +17,8 @@ namespace Scholarship.Service.Loans.Models
         public Guid ClientUuid { get; set; } = Guid.Empty;
         public double MoneyAmount { get; set; } = default!;
 
-        public DateTime OpenTime { get; set; } = default!;
-        public DateTime BeforeTime { get; set; } = default!;
+        public DateOnly OpenTime { get; set; } = default!;
+        public DateOnly BeforeTime { get; set; } = default!;
 
         public string CreditorSurname { get; set; } = string.Empty;
         public string CreditorName { get; set; } = string.Empty;

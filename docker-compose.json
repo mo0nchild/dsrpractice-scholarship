@@ -55,6 +55,66 @@
 			},
 			"restart": "on-failure:10"
 		},
+		"scholarship.gateway": {
+			"image": "scholarship.gateway",
+			"build": {
+				"context": ".",
+				"dockerfile": "Scholarship.Systems/Scholarship.Gateway/Dockerfile"
+			},
+			"environment": {
+				"ASPNETCORE_ENVIRONMENT": "Development",
+				"ASPNETCORE_HTTP_PORTS": "8080"
+			},
+			"ports": [ "8082:8080" ],
+			"networks": {
+				"scholarship-network": {
+					"aliases": [ "scholarship.gateway" ],
+					"ipv4_address": "172.24.0.6"
+				}
+			},
+			"depends_on": {
+				"postgres": {
+					"condition": "service_healthy"
+				},
+				"rabbitmq": {
+					"condition": "service_started"
+				},
+				"scholarship.loans": {
+					"condition": "service_started"
+				},
+				"scholarship.users": {
+					"condition": "service_started"
+				}
+			},
+			"restart": "on-failure:10"
+		},
+		"scholarship.backup": {
+			"image": "scholarship.backup",
+			"build": {
+				"context": ".",
+				"dockerfile": "Scholarship.Systems/Scholarship.Api.Backup/Dockerfile"
+			},
+			"environment": {
+				"ASPNETCORE_ENVIRONMENT": "Development",
+				"ASPNETCORE_HTTP_PORTS": "8080"
+			},
+			"ports": [ "8083:8080" ],
+			"networks": {
+				"scholarship-network": {
+					"aliases": [ "scholarship.backup" ],
+					"ipv4_address": "172.24.0.7"
+				}
+			},
+			"depends_on": {
+				"postgres": {
+					"condition": "service_healthy"
+				},
+				"rabbitmq": {
+					"condition": "service_started"
+				}
+			},
+			"restart": "on-failure:10"
+		},
 		"postgres": {
 			"image": "postgres:latest",
 			"container_name": "postgres",

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Scholarship.Api.Loans.Models;
 using Scholarship.Service.Loans.Infrastructure;
 using Scholarship.Service.Loans.Models;
+using Scholarship.Shared.Commons.Exceptions;
 using Scholarship.Shared.Commons.Responses;
 using Scholarship.Shared.Commons.Security;
 using Scholarship.Shared.Commons.TransitModels.UserExists;
@@ -16,7 +17,7 @@ namespace Scholarship.Api.Loans.Controllers
     public class LoansController : ControllerBase
     {
         private ILogger<LoansController> Logger { get; set; } = default!;
-        protected Guid UserUuid { get => this.User.GetUserUuid() ?? throw new Exception("Не найден Uuid пользователя"); }
+        protected Guid UserUuid { get => this.User.GetUserUuid() ?? throw new ProcessException("Не найден Uuid пользователя"); }
 
         private readonly ILoanService loanService = default!;
         private readonly IMapper mapper = default!;
@@ -42,12 +43,15 @@ namespace Scholarship.Api.Loans.Controllers
         [Route("close"), HttpPut]
         [ProducesResponseType(typeof(SucceedResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CloseLoanHandler(CloseLoanModel request)
+        public async Task<IActionResult> CloseLoanHandler([FromBody] CloseLoanModel request)
         {
             var model = this.mapper.Map<CloseLoanModel>(request);
-            await this.loanService.CheckLoanOwner(model.LoanUuid, this.UserUuid);
+            if (!await this.loanService.CheckLoanOwner(model.LoanUuid, this.UserUuid))
+            {
+                return this.BadRequest(new ErrorResponse() { Cause = "Запись займа не принадлежит пользователю" });
+            };
             await this.loanService.CloseLoan(model);
-            return this.Ok(new SucceedResponse() { Message = "Запись о займе добавлена" });
+            return this.Ok(new SucceedResponse() { Message = "Запись займа была закрыта" });
         }
         [Authorize("User", AuthenticationSchemes = UsersAuthenticateSchemeOptions.DefaultScheme)]
         [Route("list"), HttpGet]

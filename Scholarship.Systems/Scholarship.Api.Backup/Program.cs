@@ -1,16 +1,15 @@
 
 using FluentValidation;
-using Scholarship.Api.Users.Configurations;
-using Scholarship.Database.Authorizations;
-using Scholarship.Service.Users;
-using Scholarship.Services.Tokens;
+using Microsoft.AspNetCore.Builder;
+using Scholarship.Api.Backup.Configurations;
+using Scholarship.Shared.Commons.Configurations;
 using Scholarship.Shared.Commons.Exceptions;
-using Scholarship.Shared.Commons.Helpers;
 using Scholarship.Shared.Commons.Middlewares;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace Scholarship.Api.Users
+namespace Scholarship.Api.Backup
 {
-    public class Program : object
+    public class Program
     {
         public static async Task Main(string[] args)
         {
@@ -21,19 +20,20 @@ namespace Scholarship.Api.Users
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            await builder.Services.AddUsersApiServices(builder.Configuration);
+            await builder.Services.AddBackupApiServices(builder.Configuration);
+            await builder.Services.AddIdentityServices(builder.Configuration);
             var application = builder.Build();
-            
+
             if (application.Environment.IsDevelopment())
             {
                 application.UseSwagger();
                 application.UseSwaggerUI();
             }
             application.UseHttpsRedirection();
-
             application.UseExceptionsHandler<ValidationException>();
             application.UseExceptionsHandler<ProcessException>();
 
+            application.UseAuthentication();
             application.UseAuthorization();
             application.MapControllers();
             await application.RunAsync();

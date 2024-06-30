@@ -12,7 +12,7 @@ public static class ValidatorsRegisterHelper : object
         var assemblies = AppDomain.CurrentDomain.GetAssemblies()
             .Where(s => s.FullName != null && s.FullName.ToLower().StartsWith("scholarship."));
 
-        assemblies.ToList().ForEach(x => { services.AddValidatorsFromAssembly(x, ServiceLifetime.Singleton); });
+        assemblies.ToList().ForEach(x => { services.AddValidatorsFromAssembly(x, ServiceLifetime.Scoped); });
         return Task.CompletedTask;
     }
 }

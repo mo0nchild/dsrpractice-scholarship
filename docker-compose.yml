@@ -13,3 +13,17 @@ services:
       context: .
       dockerfile: Scholarship.Systems/Scholarship.Api.Loans/Dockerfile
 
+
+  scholarship.gateway:
+    image: ${DOCKER_REGISTRY-}scholarshipgateway
+    build:
+      context: .
+      dockerfile: Scholarship.Systems/Scholarship.Gateway/Dockerfile
+
+
+  scholarship.api.backup:
+    image: ${DOCKER_REGISTRY-}scholarshipapibackup
+    build:
+      context: .
+      dockerfile: Scholarship.Systems/Scholarship.Api.Backup/Dockerfile
+

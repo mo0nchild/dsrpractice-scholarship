@@ -12,7 +12,7 @@ namespace Scholarship.Service.Loans.Models
     public class CloseLoanModel : object
     {
         public Guid LoanUuid { get; set; } = Guid.Empty;
-        public DateTime CloseTime { get; set; } = default!;
+        public DateOnly CloseTime { get; set; } = default!;
     }
     public class CloseLoanModelValidator : AbstractValidator<CloseLoanModel>
     {

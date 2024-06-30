@@ -15,7 +15,7 @@ public static class ValidatorConfiguration : object
             options.DisableDataAnnotationsValidation = true;
         });
         ValidatorsRegisterHelper.Register(collection);
-        collection.AddSingleton(typeof(IModelValidator<>), typeof(ModelValidator<>));
+        collection.AddScoped(typeof(IModelValidator<>), typeof(ModelValidator<>));
 
         return Task.FromResult(collection);
     }

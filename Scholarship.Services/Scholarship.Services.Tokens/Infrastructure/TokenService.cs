@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Abstractions;
 using Microsoft.IdentityModel.Tokens;
 using Scholarship.Service.Tokens.Configurations;
 using Scholarship.Services.Tokens.Models;
+using Scholarship.Shared.Commons.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -63,12 +64,12 @@ namespace Scholarship.Services.Tokens.Infrastructure
                 var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
                 var jwtToken = (JwtSecurityToken)validatedToken;
 
-                if (jwtToken.ValidTo < DateTime.UtcNow) throw new Exception("Токен просрочен");
+                if (jwtToken.ValidTo < DateTime.UtcNow) throw new ProcessException("Токен просрочен");
                 return principal.Claims.ToArray();
             }
             catch (Exception error)
             {
-                Console.WriteLine($"Ошибка в валидации токена: {error.Message}");
+                this.logger.LogWarning($"Ошибка в валидации токена: {error.Message}");
                 return null;
             }
         } 

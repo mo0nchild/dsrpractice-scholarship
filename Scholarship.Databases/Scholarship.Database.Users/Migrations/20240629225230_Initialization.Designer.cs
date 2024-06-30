@@ -12,7 +12,7 @@ using Scholarship.Database.Users.Context;
 namespace Scholarship.Database.Users.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20240627021825_Initialization")]
+    [Migration("20240629225230_Initialization")]
     partial class Initialization
     {
         /// <inheritdoc />

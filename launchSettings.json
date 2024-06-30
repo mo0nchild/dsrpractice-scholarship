@@ -5,7 +5,9 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "scholarship.api.authorizations": "StartDebugging",
-        "scholarship.api.loans": "StartDebugging"
+        "scholarship.api.loans": "StartDebugging",
+        "scholarship.gateway": "StartDebugging",
+        "scholarship.api.backup": "StartDebugging"
       }
     }
   }

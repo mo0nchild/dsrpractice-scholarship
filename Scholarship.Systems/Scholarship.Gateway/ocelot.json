@@ -1,0 +1,43 @@
+{
+	"Routes": [
+		{
+			"UpstreamHttpMethod": [ "Get", "Post" ],
+			"UpstreamPathTemplate": "/users/{url}",
+			"DownstreamPathTemplate": "/users/{url}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "scholarship.users",
+					"Port": 8080
+				}
+			]
+		},
+		{
+			"UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+			"UpstreamPathTemplate": "/loans/{url}",
+			"DownstreamPathTemplate": "/loans/{url}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "scholarship.loans",
+					"Port": 8080
+				}
+			]
+		},
+		{
+			"UpstreamHttpMethod": [ "Get", "Post" ],
+			"UpstreamPathTemplate": "/backup/{url}",
+			"DownstreamPathTemplate": "/backup/{url}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "scholarship.backup",
+					"Port": 8080
+				}
+			]
+		}
+	],
+	"GlobalConfiguration": {
+		"BaseUrl": "http://localhost:8080"
+	}
+}

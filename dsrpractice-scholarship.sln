@@ -31,7 +31,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{571BD0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scholarship.Shared.Commons", "Scholarship.Shared\Scholarship.Shared.Commons\Scholarship.Shared.Commons.csproj", "{12A5EE8A-924B-4064-8A3F-2EEC352B08FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholarship.Database.Seeder", "Scholarship.Databases\Scholarship.Database.Seeder\Scholarship.Database.Seeder.csproj", "{4A189A17-B6DE-4FE9-8FFE-3FC910CECEEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scholarship.Database.Seeder", "Scholarship.Databases\Scholarship.Database.Seeder\Scholarship.Database.Seeder.csproj", "{4A189A17-B6DE-4FE9-8FFE-3FC910CECEEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{014CE006-D63C-4156-A90D-7D87F45CB4F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholarship.Gateway", "Scholarship.Systems\Scholarship.Gateway\Scholarship.Gateway.csproj", "{055DED2E-D89B-4A5F-AD29-43CA89242F36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholarship.Service.Backup", "Scholarship.Services\Scholarship.Service.Backup\Scholarship.Service.Backup.csproj", "{2DF53367-94DB-4F61-AA7A-6F78EFE1ED67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholarship.Api.Backup", "Scholarship.Systems\Scholarship.Api.Backup\Scholarship.Api.Backup.csproj", "{32F3B75A-23A6-404C-88CA-62046D56F9ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +87,18 @@ Global
 		{4A189A17-B6DE-4FE9-8FFE-3FC910CECEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A189A17-B6DE-4FE9-8FFE-3FC910CECEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A189A17-B6DE-4FE9-8FFE-3FC910CECEEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{055DED2E-D89B-4A5F-AD29-43CA89242F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{055DED2E-D89B-4A5F-AD29-43CA89242F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{055DED2E-D89B-4A5F-AD29-43CA89242F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{055DED2E-D89B-4A5F-AD29-43CA89242F36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DF53367-94DB-4F61-AA7A-6F78EFE1ED67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DF53367-94DB-4F61-AA7A-6F78EFE1ED67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DF53367-94DB-4F61-AA7A-6F78EFE1ED67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DF53367-94DB-4F61-AA7A-6F78EFE1ED67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32F3B75A-23A6-404C-88CA-62046D56F9ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32F3B75A-23A6-404C-88CA-62046D56F9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32F3B75A-23A6-404C-88CA-62046D56F9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32F3B75A-23A6-404C-88CA-62046D56F9ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +114,10 @@ Global
 		{798B6197-364D-40F1-9420-6B1FAEC7F6FF} = {55479428-5919-450F-91EC-DE1A8D8A9666}
 		{12A5EE8A-924B-4064-8A3F-2EEC352B08FF} = {571BD000-77E8-4CEA-800E-C89C07897D47}
 		{4A189A17-B6DE-4FE9-8FFE-3FC910CECEEC} = {E0E1C0B1-97B3-4FB5-A175-002DE0E7B9AA}
+		{014CE006-D63C-4156-A90D-7D87F45CB4F3} = {0F84B204-DFC9-4192-B83E-2B892B6A25BE}
+		{055DED2E-D89B-4A5F-AD29-43CA89242F36} = {014CE006-D63C-4156-A90D-7D87F45CB4F3}
+		{2DF53367-94DB-4F61-AA7A-6F78EFE1ED67} = {55479428-5919-450F-91EC-DE1A8D8A9666}
+		{32F3B75A-23A6-404C-88CA-62046D56F9ED} = {0C7F917E-B529-48CA-BADB-3B1EF21FF8A3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97D0BFA1-6EF9-48FF-9FB7-F7E62D8F61FA}

@@ -12,12 +12,11 @@ namespace Scholarship.Shared.Commons.Configurations
 {
     public static class TransitConfiguration : object
     {
-        public static readonly string TransitSection = "Transit";
         public static Task<IServiceCollection> AddTransitServices(this IServiceCollection collection,
             IConfiguration configuration)
         {
-            var settings = configuration.GetSection(TransitSection).Get<TransitOptions>();
-            if (settings == null) throw new Exception("TransitSection empty");
+            var settings = configuration.GetSection(nameof(TransitOptions)).Get<TransitOptions>();
+            if (settings == null) throw new Exception($"{nameof(TransitOptions)} section is empty");
             collection.AddMassTransit(options =>
             {
                 options.AddConsumers(Assembly.GetEntryAssembly());

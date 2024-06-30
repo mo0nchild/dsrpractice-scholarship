@@ -25,9 +25,9 @@ namespace Scholarship.Database.Loans.Migrations
                     Uuid = table.Column<Guid>(type: "uuid", nullable: false),
                     ClientUuid = table.Column<Guid>(type: "uuid", nullable: false),
                     MoneyAmount = table.Column<double>(type: "double precision", nullable: false),
-                    OpenTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    BeforeTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CloseTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    OpenTime = table.Column<DateOnly>(type: "date", nullable: false),
+                    BeforeTime = table.Column<DateOnly>(type: "date", nullable: false),
+                    CloseTime = table.Column<DateOnly>(type: "date", nullable: true),
                     CreditorSurname = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CreditorName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CreditorPatronymic = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)

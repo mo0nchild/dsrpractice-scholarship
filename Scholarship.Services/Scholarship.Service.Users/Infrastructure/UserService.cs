@@ -124,12 +124,13 @@ namespace Scholarship.Service.Users.Infrastructure
 
             using (var dbContext = await this.contextFactory.CreateDbContextAsync())
             {
-                var profileClaims = this.GenerateClaims(this.mapper.Map<UserModel>(info));
-                var tokens = await this.tokenService.CreateJwtTokens(profileClaims);
+                var role = await dbContext.UserRoles.FirstOrDefaultAsync(item => item.Name == info.RoleName);
+                if (role == null) throw new ProcessException("Роль не найдена");
+                userRecord.Role = role;
+                var profileClaims = this.GenerateClaims(this.mapper.Map<UserModel>(userRecord));
 
-                var role = await dbContext.UserRoles.FirstAsync(item => item.Name == info.RoleName);
+                var tokens = await this.tokenService.CreateJwtTokens(profileClaims);
                 userRecord.RefreshToken.Token = tokens.RefreshToken;
-                userRecord.RoleId = role.Id;
 
                 await dbContext.UserInfos.AddRangeAsync(userRecord);
                 await dbContext.SaveChangesAsync();

@@ -33,14 +33,14 @@ namespace Scholarship.Database.Loans.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("BeforeTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("BeforeTime")
+                        .HasColumnType("date");
 
                     b.Property<Guid>("ClientUuid")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("CloseTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly?>("CloseTime")
+                        .HasColumnType("date");
 
                     b.Property<string>("CreditorName")
                         .IsRequired()
@@ -60,8 +60,8 @@ namespace Scholarship.Database.Loans.Migrations
                     b.Property<double>("MoneyAmount")
                         .HasColumnType("double precision");
 
-                    b.Property<DateTime>("OpenTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("OpenTime")
+                        .HasColumnType("date");
 
                     b.Property<Guid>("Uuid")
                         .HasColumnType("uuid");

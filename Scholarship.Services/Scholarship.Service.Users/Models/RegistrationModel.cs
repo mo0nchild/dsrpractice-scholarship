@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Scholarship.Database.Users.Context;
 using Scholarship.Database.Users.Entities;
 using System;
@@ -54,7 +55,7 @@ namespace Scholarship.Service.Users.Models
                 }).WithMessage("Пользователь уже зарегистрирован");
             base.RuleFor(item => item.Name)
                 .NotEmpty().WithMessage("Значение имени не может быть пустым")
-                .Length(5, 50).WithMessage("Длина имени между 5 и 50 символами");
+                .Length(3, 50).WithMessage("Длина имени между 3 и 50 символами");
             base.RuleFor(item => item.RoleName)
                 .NotEmpty().WithMessage("Значение роли не может быть пустым")
                 .Must(item =>
