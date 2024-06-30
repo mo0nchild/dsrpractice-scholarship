@@ -1,20 +1,23 @@
 ﻿using MassTransit;
-using Scholarship.Shared.Commons.TransitModels.UserExists;
+using Scholarship.Service.Users.Infrastructure;
+using Scholarship.Shared.Commons.TransitModels;
 
 namespace Scholarship.Api.Users.Consumers
 {
     public class UserExistsConsumer : IConsumer<UserExistsRequest>
     {
-        public UserExistsConsumer() : base()
+        protected ILogger<UserExistsConsumer> Logger { get; set; } = default!;
+        private readonly IUserService userService = default!;
+        public UserExistsConsumer(ILogger<UserExistsConsumer> logger, IUserService userService) : base()
         {
-
-        }
+            this.userService = userService;
+            this.Logger = logger;
+        } 
         public async Task Consume(ConsumeContext<UserExistsRequest> context)
         {
-            Console.WriteLine("\n\n\n\nCONSUMER");
             await context.RespondAsync<UserExistsResponse>(new UserExistsResponse()
             {
-                Exists = true
+                Exists = await this.userService.IsUserExist(context.Message.UserUuid)
             });
         }
     }

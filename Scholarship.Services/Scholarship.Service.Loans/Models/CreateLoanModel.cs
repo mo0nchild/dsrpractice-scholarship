@@ -3,7 +3,7 @@ using FluentValidation;
 using MassTransit;
 using Scholarship.Database.Loans.Entities;
 using Scholarship.Shared.Commons.Exceptions;
-using Scholarship.Shared.Commons.TransitModels.UserExists;
+using Scholarship.Shared.Commons.TransitModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

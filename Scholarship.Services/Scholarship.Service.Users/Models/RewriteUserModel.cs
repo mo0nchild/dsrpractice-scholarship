@@ -2,24 +2,25 @@
 using Scholarship.Database.Users.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Scholarship.Service.Users.Models
 {
-    public class UserModel : object
+    public class RewriteUserModel : object
     {
         public Guid Uuid { get; set; } = Guid.Empty;
-        public string RoleName { get; set; } = string.Empty;
-
         public string Email { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
-    }
 
-    public class UserModelProfile : Profile
+        public string Password { get; set; } = string.Empty;
+        public string RoleName { get; set; } = string.Empty;
+    }
+    public class RewriteUserModelProfile : Profile
     {
-        public UserModelProfile() : base() => base.CreateMap<UserInfo, UserModel>()
-            .ForMember(item => item.RoleName, options => options.MapFrom(p => p.Role.Name));
+        public RewriteUserModelProfile() : base() => this.CreateMap<RewriteUserModel, UserInfo>()
+            .ReverseMap();
     }
 }

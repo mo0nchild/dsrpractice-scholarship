@@ -12,6 +12,7 @@ using Scholarship.Shared.Commons.Security;
 using Scholarship.Shared.Commons.Validator;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
@@ -44,7 +45,7 @@ namespace Scholarship.Service.Users.Infrastructure
         protected virtual Claim[] GenerateClaims(UserModel model) => new Claim[]
         {
             new Claim(ClaimTypes.PrimarySid, model.Uuid.ToString()),
-            new Claim(ClaimTypes.Role, model.Role),
+            new Claim(ClaimTypes.Role, model.RoleName),
             new Claim(ClaimTypes.Email, model.Email),
         };
         public async Task<UserModel?> GetUserByAccess(string accessToken)
@@ -149,6 +150,30 @@ namespace Scholarship.Service.Users.Infrastructure
         {
             using var dbContext = await this.contextFactory.CreateDbContextAsync();
             return (await dbContext.UserInfos.AnyAsync(item => item.Uuid == uuid));
+        }
+        public async Task<List<RewriteUserModel>> GetAllUsers()
+        {
+            using var dbContext = await this.contextFactory.CreateDbContextAsync();
+            var recordsList = dbContext.UserInfos.AsNoTracking().ToListAsync();
+
+            return this.mapper.Map<List<RewriteUserModel>>(recordsList);
+        }
+        public async Task RewriteAllUsers(List<RewriteUserModel> usersList)
+        {
+            using var dbContext = await this.contextFactory.CreateDbContextAsync();
+            var roleRecord = await dbContext.UserRoles.ToListAsync();
+            var newRecords = usersList
+                .Where(item => roleRecord.Select(r => r.Name).Contains(item.RoleName))
+                .Select(item =>
+                {
+                    var newRecord = this.mapper.Map<UserInfo>(item);
+                    newRecord.Role = roleRecord.First(p => p.Name == item.RoleName);
+                    return newRecord;
+                })
+                .ToList();
+            dbContext.Database.ExecuteSqlRaw($"DELETE FROM {nameof(UserInfo)}");
+            await dbContext.UserInfos.AddRangeAsync(newRecords);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

@@ -11,5 +11,8 @@ namespace Scholarship.Service.Users.Infrastructure
         public Task<bool> IsUserExist(Guid uuid);
         public Task<bool> IsEmpty();
         public Task<IdentityModel> Registration(RegistrationModel info);
+
+        public Task<List<RewriteUserModel>> GetAllUsers();
+        public Task RewriteAllUsers(List<RewriteUserModel> loansList);
     }
 }

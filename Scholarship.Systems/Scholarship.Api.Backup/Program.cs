@@ -9,7 +9,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Scholarship.Api.Backup
 {
-    public class Program
+    public class Program : object
     {
         public static async Task Main(string[] args)
         {

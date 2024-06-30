@@ -66,19 +66,17 @@ namespace Scholarship.Service.Loans.Infrastructure
         }
         public async Task<List<LoanModel>> GetLoansFromUuid(Guid clientUuid)
         {
-            using (var dbContext = await this.contextFactory.CreateDbContextAsync())
-            {
-                var loanRecords = await dbContext.Loans.Where(item => item.ClientUuid == clientUuid)
-                    .ToListAsync();
-                return this.mapper.Map<List<LoanModel>>(loanRecords);
-            }
+            using var dbContext = await this.contextFactory.CreateDbContextAsync();
+            var loanRecords = await dbContext.Loans.Where(item => item.ClientUuid == clientUuid)
+                .ToListAsync();
+            return this.mapper.Map<List<LoanModel>>(loanRecords);
         }
         public async Task RewriteAllLoans(List<RewriteLoanModel> loansList)
         {
-            using (var dbContext = await this.contextFactory.CreateDbContextAsync())
-            {
-                
-            }
+            using var dbContext = await this.contextFactory.CreateDbContextAsync();
+            dbContext.Database.ExecuteSqlRaw($"DELETE FROM {nameof(LoanInfo)}");
+
+            await dbContext.Loans.AddRangeAsync(this.mapper.Map<List<LoanInfo>>(loansList));
         }
     }
 }

@@ -23,7 +23,6 @@ namespace Scholarship.Gateway
                 application.UseSwagger();
                 application.UseSwaggerUI();
             }
-
             application.UseHttpsRedirection();
 
             application.UseRouting();

@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scholarship.Shared.Commons.TransitModels.UserExists
+namespace Scholarship.Shared.Commons.TransitModels
 {
     public class UserExistsRequest : object
     {
         public Guid UserUuid { get; set; } = Guid.Empty;
+    }
+    public class UserExistsResponse : object
+    {
+        public bool Exists { get; set; } = default!;
     }
 }

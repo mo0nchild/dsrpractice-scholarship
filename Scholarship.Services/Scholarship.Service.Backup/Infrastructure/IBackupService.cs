@@ -8,5 +8,7 @@ namespace Scholarship.Service.Backup.Infrastructure
 {
     public interface IBackupService
     {
+        public Task<byte[]> GetDbFromBytes();
+        public Task LoadDbFromBytes(byte[] data);
     }
 }
