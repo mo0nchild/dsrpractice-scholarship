@@ -53,14 +53,14 @@ namespace Scholarship.Service.Users.Infrastructure
             var userClaims = await this.tokenService.VerifyAccessToken(accessToken);
             var userUuid = userClaims?.FirstOrDefault(item => item.Type == ClaimTypes.PrimarySid);
 
-            ProcessException.ThrowIf(() => userClaims == null || userUuid == null, "Ошибка в валидации токена");
+            ProcessException.ThrowIf(() => userClaims == null || userUuid == null, "Error in token validation");
             using (var dbContext = await this.contextFactory.CreateDbContextAsync())
             {
                 var userProfile = await dbContext.UserInfos.Include(item => item.Role)
                     .FirstOrDefaultAsync(item => item.Uuid == Guid.Parse(userUuid!.Value));
                 if (userProfile == null)
                 {
-                    throw new ProcessException("Пользователь не найден");
+                    throw new ProcessException("User is not found");
                 }
                 return this.mapper.Map<UserModel>(userProfile);
             }
@@ -70,7 +70,7 @@ namespace Scholarship.Service.Users.Infrastructure
             var userClaims = await this.tokenService.VerifyRefreshToken(refreshToken);
             var userUuid = userClaims?.FirstOrDefault(item => item.Type == ClaimTypes.PrimarySid);
 
-            ProcessException.ThrowIf(() => userClaims == null || userUuid == null, "Ошибка в валидации токена");
+            ProcessException.ThrowIf(() => userClaims == null || userUuid == null, "Error in token validation");
             using (var dbContext = await this.contextFactory.CreateDbContextAsync())
             {
                 var profile = await dbContext.RefreshTokens.Where(item => item.Token == refreshToken)
@@ -79,7 +79,7 @@ namespace Scholarship.Service.Users.Infrastructure
                     .Where(item => item.UserInfo.Uuid == Guid.Parse(userUuid!.Value))
                     .Select(item => item.UserInfo).FirstOrDefaultAsync();
 
-                if (profile == null) throw new ProcessException("Пользователь не найден");
+                if (profile == null) throw new ProcessException("User is not found");
                 var profileClaims = this.GenerateClaims(this.mapper.Map<UserModel>(profile));
                 var tokens = await this.tokenService.CreateJwtTokens(profileClaims);
 
@@ -105,7 +105,7 @@ namespace Scholarship.Service.Users.Infrastructure
 
                 var profile = profilesList.FirstOrDefault(item => 
                     item.Email == credentials.Email && verifyPassword(item.Password));
-                if (profile == null) throw new ProcessException("Пользователь не найден");
+                if (profile == null) throw new ProcessException("User is not found");
 
                 var profileClaims = this.GenerateClaims(this.mapper.Map<UserModel>(profile));
                 var tokens = await this.tokenService.CreateJwtTokens(profileClaims);
@@ -126,7 +126,7 @@ namespace Scholarship.Service.Users.Infrastructure
             using (var dbContext = await this.contextFactory.CreateDbContextAsync())
             {
                 var role = await dbContext.UserRoles.FirstOrDefaultAsync(item => item.Name == info.RoleName);
-                if (role == null) throw new ProcessException("Роль не найдена");
+                if (role == null) throw new ProcessException("Role not found");
                 userRecord.Role = role;
                 var profileClaims = this.GenerateClaims(this.mapper.Map<UserModel>(userRecord));
 

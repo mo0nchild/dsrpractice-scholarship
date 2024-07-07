@@ -39,7 +39,7 @@ namespace Scholarship.Service.Loans.Infrastructure
 
             var loan = await dbContext.Loans.FirstOrDefaultAsync(item => item.Uuid == loanUuid);
             return loan == null 
-                ? throw new ProcessException("Запись о займе не найдена")
+                ? throw new ProcessException("Loan record not found")
                 : loan.ClientUuid == userUuid;
         }
         public async Task CloseLoan(CloseLoanModel loanInfo)
@@ -49,7 +49,7 @@ namespace Scholarship.Service.Loans.Infrastructure
             {
                 var record = await dbContext.Loans.FirstOrDefaultAsync(item => item.Uuid 
                     == loanInfo.LoanUuid);
-                if (record == null) throw new ProcessException("Запись займа не найдена");
+                if (record == null) throw new ProcessException("Loan record not found");
 
                 var saveRequest = this.mapper.Map<SaveHistoryRequest>(record);
                 saveRequest.ClosedTime = loanInfo.CloseTime;

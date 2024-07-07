@@ -31,7 +31,7 @@ namespace Scholarship.Shared.Commons.Security
             var authorizationHeader = this.Request.Headers["Authorization"].FirstOrDefault();
             if (string.IsNullOrEmpty(authorizationHeader) || !authorizationHeader.StartsWith("Bearer "))
             {
-                return AuthenticateResult.Fail("Ошибка валидации заголовка аутентификации");
+                return AuthenticateResult.Fail("Authentication header validation error");
             }
             var tokenValue = authorizationHeader.Split(' ')[1];
             using (var httpClient = this.httpFactory.CreateClient())

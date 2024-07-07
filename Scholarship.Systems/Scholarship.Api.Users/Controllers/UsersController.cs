@@ -39,7 +39,7 @@ namespace Scholarship.Api.Users.Controllers
         public async Task<IActionResult> LoginHandler([FromQuery] CredentialsModel request)
         {
             var data = await this.userService.GetTokensByCredentials(request);
-            if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Невозможно получить ответ" });
+            if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Can't get a response" });
             return this.Ok(data);
         }
         [Route("info"), HttpGet]
@@ -48,7 +48,7 @@ namespace Scholarship.Api.Users.Controllers
         public async Task<IActionResult> GetInfoHandler([FromQuery] string token)
         {
             var data = await this.userService.GetUserByAccess(token);
-            if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Невозможно получить ответ" });
+            if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Can't get a response" });
             return this.Ok(data);
         }
         [Route("refresh"), HttpGet]
@@ -57,7 +57,7 @@ namespace Scholarship.Api.Users.Controllers
         public async Task<IActionResult> GetRefreshHandler([FromQuery] string token)
         {
             var data = await this.userService.GetTokensByRefresh(token);
-            if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Невозможно получить ответ" });
+            if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Can't get a response" });
             return this.Ok(data);
         }
     }

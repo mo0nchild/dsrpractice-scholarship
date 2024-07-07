@@ -64,12 +64,12 @@ namespace Scholarship.Services.Tokens.Infrastructure
                 var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
                 var jwtToken = (JwtSecurityToken)validatedToken;
 
-                if (jwtToken.ValidTo < DateTime.UtcNow) throw new ProcessException("Токен просрочен");
+                if (jwtToken.ValidTo < DateTime.UtcNow) throw new ProcessException("Token expired");
                 return principal.Claims.ToArray();
             }
             catch (Exception error)
             {
-                this.logger.LogWarning($"Ошибка в валидации токена: {error.Message}");
+                this.logger.LogWarning($"Error in token validation: {error.Message}");
                 return null;
             }
         } 

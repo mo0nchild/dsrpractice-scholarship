@@ -54,7 +54,7 @@ namespace Scholarship.Service.Backup.Infrastructure
             using (var memoryStream = new MemoryStream(data))
             {
                 var backupData = this.XmlSerializer.Deserialize(memoryStream) as BackupXmlModel;
-                if (backupData == null) throw new ProcessException("Невозможно обработать данные");
+                if (backupData == null) throw new ProcessException("Unable to process data");
 
                 await this.publishEndpoint.Publish(new RewriteUsersRequest()
                 {

@@ -22,13 +22,13 @@ namespace Scholarship.Service.Loans.Models
             IScopedClientFactory clientFactory) : base()
         {
             this.RuleFor(item => item.LoanUuid)
-                .NotEmpty().WithMessage("Необходимо значение Uuid займа")
+                .NotEmpty().WithMessage("Loan Uuid value required")
                 .Must(item =>
                 {
                     using var dbContext = contextFactory.CreateDbContext();
                     return dbContext.Loans.Any(p => p.Uuid == item);
                 })
-                .WithMessage("Запись займа не найдена")
+                .WithMessage("Loan record not found")
                 .Must((model, item) =>
                 {
                     var checkClient = clientFactory.CreateRequestClient<CheckLoanClosedRequest>();
@@ -38,9 +38,9 @@ namespace Scholarship.Service.Loans.Models
                     }).Result;
                     return !result.Message.Closed;
                 })
-                .WithMessage("Запись о займе уже закрыта");
+                .WithMessage("The loan record is already closed");
             this.RuleFor(item => item.CloseTime)
-                .NotEmpty().WithMessage("Необходимо значение даты закрытия")
+                .NotEmpty().WithMessage("Required closing date value")
                 .Must((model, item) =>
                 {
                     using var dbContext = contextFactory.CreateDbContext();
@@ -48,7 +48,7 @@ namespace Scholarship.Service.Loans.Models
 
                     return record == null ? true : record.BeforeTime <= item && record.OpenTime <= item;
                 })
-                .WithMessage("Дата закрытия должна быть позже даты открытия");
+                .WithMessage("Closing date must be later than opening date");
         }
     }
 }
