@@ -8,7 +8,6 @@ using Scholarship.Service.Loans.Models;
 using Scholarship.Shared.Commons.Exceptions;
 using Scholarship.Shared.Commons.Responses;
 using Scholarship.Shared.Commons.Security;
-using Scholarship.Shared.Commons.TransitModels.UserExists;
 using System.Net;
 
 namespace Scholarship.Api.Loans.Controllers
@@ -60,6 +59,14 @@ namespace Scholarship.Api.Loans.Controllers
         public async Task<IActionResult> GetLoansListHandler()
         {
             return this.Ok(await this.loanService.GetLoansFromUuid(this.UserUuid));
+        }
+        [Authorize("Admin", AuthenticationSchemes = UsersAuthenticateSchemeOptions.DefaultScheme)]
+        [Route("all"), HttpGet]
+        [ProducesResponseType(typeof(List<LoanModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetAllLoansListHandler()
+        {
+            return this.Ok(await this.loanService.GetAllLoans());
         }
     }
 }

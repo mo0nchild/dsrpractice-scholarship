@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -20,13 +19,12 @@ namespace Scholarship.Database.Users.Migrations
                 schema: "public",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Uuid = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRole", x => x.Id);
+                    table.PrimaryKey("PK_UserRole", x => x.Uuid);
                 });
 
             migrationBuilder.CreateTable(
@@ -34,23 +32,21 @@ namespace Scholarship.Database.Users.Migrations
                 schema: "public",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Uuid = table.Column<Guid>(type: "uuid", nullable: false),
                     Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    RoleId = table.Column<int>(type: "integer", nullable: false)
+                    RoleUuid = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserInfo", x => x.Id);
+                    table.PrimaryKey("PK_UserInfo", x => x.Uuid);
                     table.ForeignKey(
-                        name: "FK_UserInfo_UserRole_RoleId",
-                        column: x => x.RoleId,
+                        name: "FK_UserInfo_UserRole_RoleUuid",
+                        column: x => x.RoleUuid,
                         principalSchema: "public",
                         principalTable: "UserRole",
-                        principalColumn: "Id",
+                        principalColumn: "Uuid",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -59,36 +55,27 @@ namespace Scholarship.Database.Users.Migrations
                 schema: "public",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Uuid = table.Column<Guid>(type: "uuid", nullable: false),
                     Token = table.Column<string>(type: "text", nullable: false),
-                    UserInfoId = table.Column<int>(type: "integer", nullable: false)
+                    UserInfoUuid = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RefreshToken", x => x.Id);
+                    table.PrimaryKey("PK_RefreshToken", x => x.Uuid);
                     table.ForeignKey(
-                        name: "FK_RefreshToken_UserInfo_UserInfoId",
-                        column: x => x.UserInfoId,
+                        name: "FK_RefreshToken_UserInfo_UserInfoUuid",
+                        column: x => x.UserInfoUuid,
                         principalSchema: "public",
                         principalTable: "UserInfo",
-                        principalColumn: "Id",
+                        principalColumn: "Uuid",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_RefreshToken_Id",
+                name: "IX_RefreshToken_UserInfoUuid",
                 schema: "public",
                 table: "RefreshToken",
-                column: "Id",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RefreshToken_UserInfoId",
-                schema: "public",
-                table: "RefreshToken",
-                column: "UserInfoId",
+                column: "UserInfoUuid",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -106,17 +93,10 @@ namespace Scholarship.Database.Users.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserInfo_Id",
+                name: "IX_UserInfo_RoleUuid",
                 schema: "public",
                 table: "UserInfo",
-                column: "Id",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserInfo_RoleId",
-                schema: "public",
-                table: "UserInfo",
-                column: "RoleId");
+                column: "RoleUuid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserInfo_Uuid",
@@ -126,17 +106,17 @@ namespace Scholarship.Database.Users.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRole_Id",
-                schema: "public",
-                table: "UserRole",
-                column: "Id",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserRole_Name",
                 schema: "public",
                 table: "UserRole",
                 column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_Uuid",
+                schema: "public",
+                table: "UserRole",
+                column: "Uuid",
                 unique: true);
         }
 

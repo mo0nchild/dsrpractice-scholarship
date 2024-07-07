@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Scholarship.Services.Tokens.Infrastructure
 {
-    public class TokenService : ITokenService
+    internal class TokenService : ITokenService
     {
         protected readonly ILogger<TokenService> logger = default!;
         public TokenOptions TokenOptions { get; set; }

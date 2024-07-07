@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scholarship.Shared.Commons.TransitModels
+namespace Scholarship.Shared.Messages.LoansMessages
 {
     public class GetAllLoansRequest : object { }
-    public class GetAllLoansResponse : object 
+    public class GetAllLoansResponse : object
     {
         public List<LoansMessageItem> Loans { get; set; } = new();
         public class LoansMessageItem : object
@@ -19,8 +19,6 @@ namespace Scholarship.Shared.Commons.TransitModels
 
             public DateOnly OpenTime { get; set; } = default!;
             public DateOnly BeforeTime { get; set; } = default!;
-
-            public DateOnly? CloseTime { get; set; } = default!;
 
             public string CreditorSurname { get; set; } = string.Empty;
             public string CreditorName { get; set; } = string.Empty;

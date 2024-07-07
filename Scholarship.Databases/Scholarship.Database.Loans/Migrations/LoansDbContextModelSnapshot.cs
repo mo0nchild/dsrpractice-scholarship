@@ -27,20 +27,15 @@ namespace Scholarship.Database.Loans.Migrations
 
             modelBuilder.Entity("Scholarship.Database.Loans.Entities.LoanInfo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Uuid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateOnly>("BeforeTime")
                         .HasColumnType("date");
 
                     b.Property<Guid>("ClientUuid")
                         .HasColumnType("uuid");
-
-                    b.Property<DateOnly?>("CloseTime")
-                        .HasColumnType("date");
 
                     b.Property<string>("CreditorName")
                         .IsRequired()
@@ -63,13 +58,7 @@ namespace Scholarship.Database.Loans.Migrations
                     b.Property<DateOnly>("OpenTime")
                         .HasColumnType("date");
 
-                    b.Property<Guid>("Uuid")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
+                    b.HasKey("Uuid");
 
                     b.HasIndex("Uuid")
                         .IsUnique();

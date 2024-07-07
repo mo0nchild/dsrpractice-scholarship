@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "34c2665b-d8f7-48af-abc0-c6fba756eda4",
+		"name": "DsrPracticeScholarship",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "15326672",
+		"_collection_link": "https://universal-flare-895768.postman.co/workspace/My-Workspace~fbad1644-89b5-421f-8ea1-f3f6b2d39736/collection/15326672-34c2665b-d8f7-48af-abc0-c6fba756eda4?action=share&source=collection_link&creator=15326672"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/users/login?email=admin@gmail.com&password=1234567890",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "admin@gmail.com"
+								},
+								{
+									"key": "password",
+									"value": "1234567890"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"password\": \"1234567890\",\r\n    \"name\": \"Grisha\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/users/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/users/info?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiYjhhNDFmMzUtOGU3NS00NWU2LTk5NjQtNjUwOWNkY2Q5ZjM4Iiwicm9sZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYmYiOjE3MjAwNjA5MTMsImV4cCI6MTcyMDA2MTIxMywiaWF0IjoxNzIwMDYwOTEzfQ.Xp_UvFpwHF0y9Qy42Mujp3Kt4G3g8olxG5vu2vjfFT8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users",
+								"info"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiYjhhNDFmMzUtOGU3NS00NWU2LTk5NjQtNjUwOWNkY2Q5ZjM4Iiwicm9sZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYmYiOjE3MjAwNjA5MTMsImV4cCI6MTcyMDA2MTIxMywiaWF0IjoxNzIwMDYwOTEzfQ.Xp_UvFpwHF0y9Qy42Mujp3Kt4G3g8olxG5vu2vjfFT8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/users/refresh?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIiwicm9sZSI6IlVzZXIiLCJlbWFpbCI6InVzZXIyQGdtYWlsLmNvbSIsIm5iZiI6MTcxOTY5MjUwNSwiZXhwIjoxNzE5Njk2MTA1LCJpYXQiOjE3MTk2OTI1MDV9.OTjQwHdS7_B_oG8nv_OghHYTB5W0ns-eBsKKmj_2OI4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users",
+								"refresh"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiMDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwIiwicm9sZSI6IlVzZXIiLCJlbWFpbCI6InVzZXIyQGdtYWlsLmNvbSIsIm5iZiI6MTcxOTY5MjUwNSwiZXhwIjoxNzE5Njk2MTA1LCJpYXQiOjE3MTk2OTI1MDV9.OTjQwHdS7_B_oG8nv_OghHYTB5W0ns-eBsKKmj_2OI4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Loans",
+			"item": [
+				{
+					"name": "GetList",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiMDJhZWJmOTEtZWM4ZS00ZWE5LTk1NjYtMmI2Y2MzNTc5MWVjIiwicm9sZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYmYiOjE3MjAyNTA4NTgsImV4cCI6MTcyMDI1MTE1OCwiaWF0IjoxNzIwMjUwODU4fQ.it_gVRmObjkZuOn6j3u0zBcU0GydZCWwa3e9Uqf3oEU"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/loans/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiMDJhZWJmOTEtZWM4ZS00ZWE5LTk1NjYtMmI2Y2MzNTc5MWVjIiwicm9sZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYmYiOjE3MjAyNTM4MjUsImV4cCI6MTcyMDI1NDEyNSwiaWF0IjoxNzIwMjUzODI1fQ.0DRQbYhfAX6u5R56dLSo55Z_5gD2-eUXf-lA858EJ8Y"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"moneyAmount\": 300,\r\n    \"openTime\": \"2024-01-30\",\r\n    \"beforeTime\": \"2024-07-01\",\r\n    \"creditorSurname\": \"Никитин\",\r\n    \"creditorName\": \"Михаил\",\r\n    \"creditorPatronymic\": \"Ильич\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/loans/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Close",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiMDJhZWJmOTEtZWM4ZS00ZWE5LTk1NjYtMmI2Y2MzNTc5MWVjIiwicm9sZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYmYiOjE3MjAyNTA4NTgsImV4cCI6MTcyMDI1MTE1OCwiaWF0IjoxNzIwMjUwODU4fQ.it_gVRmObjkZuOn6j3u0zBcU0GydZCWwa3e9Uqf3oEU"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"loanUuid\": \"2d49eab9-cc29-4a20-8449-12c6875c29af\",\r\n    \"closeTime\": \"2025-07-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8082/loans/close"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiMDJhZWJmOTEtZWM4ZS00ZWE5LTk1NjYtMmI2Y2MzNTc5MWVjIiwicm9sZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYmYiOjE3MjAyOTI5ODAsImV4cCI6MTcyMDI5MzI4MCwiaWF0IjoxNzIwMjkyOTgwfQ.e3f18Dvn05eoC1Bf3zeO_-Q-rEIoRRpLfAJhPUJpfl4"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/loans/all"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Backup",
+			"item": [
+				{
+					"name": "GetFile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiMDJhZWJmOTEtZWM4ZS00ZWE5LTk1NjYtMmI2Y2MzNTc5MWVjIiwicm9sZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYmYiOjE3MjAzMDk0MzksImV4cCI6MTcyMDMxMTIzOSwiaWF0IjoxNzIwMzA5NDM5fQ.lVZb2LtUFAipUVCFmj18gxIDdZ8q4np2mXbvZUPYP24"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/backup/get"
+					},
+					"response": []
+				},
+				{
+					"name": "LoadFile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiMDJhZWJmOTEtZWM4ZS00ZWE5LTk1NjYtMmI2Y2MzNTc5MWVjIiwicm9sZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYmYiOjE3MjAzMDk0MzksImV4cCI6MTcyMDMxMTIzOSwiaWF0IjoxNzIwMzA5NDM5fQ.lVZb2LtUFAipUVCFmj18gxIDdZ8q4np2mXbvZUPYP24"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "backupFile",
+									"type": "file",
+									"src": "/C:/Users/letsp/Desktop/dsrpractice-scholarship/backup-data.xml"
+								}
+							]
+						},
+						"url": "http://localhost:8082/backup/load"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "History",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiYjhhNDFmMzUtOGU3NS00NWU2LTk5NjQtNjUwOWNkY2Q5ZjM4Iiwicm9sZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYmYiOjE3MjAwNjc1MDksImV4cCI6MTcyMDA2NzgwOSwiaWF0IjoxNzIwMDY3NTA5fQ.0ZkiSZcKGLdF74eGVszt98oJSG0Pifevw-ZVR-UoTJo"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/history/get"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcmltYXJ5c2lkIjoiMDJhZWJmOTEtZWM4ZS00ZWE5LTk1NjYtMmI2Y2MzNTc5MWVjIiwicm9sZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJuYmYiOjE3MjAyOTM1MzEsImV4cCI6MTcyMDI5MzgzMSwiaWF0IjoxNzIwMjkzNTMxfQ.PMfMCJEKq6R0pZPG8RICKPnuNN1m1iZJessnTU75Hpk"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/history/getAll"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

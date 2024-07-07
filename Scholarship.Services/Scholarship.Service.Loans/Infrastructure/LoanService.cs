@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Scholarship.Database.Loans.Context;
 using Scholarship.Database.Loans.Entities;
 using Scholarship.Service.Loans.Models;
 using Scholarship.Shared.Commons.Exceptions;
 using Scholarship.Shared.Commons.Validator;
+using Scholarship.Shared.Messages.HistoryMessages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +15,21 @@ using System.Threading.Tasks;
 
 namespace Scholarship.Service.Loans.Infrastructure
 {
-    public class LoanService : ILoanService
+    internal class LoanService : ILoanService
     {
         private readonly IDbContextFactory<LoansDbContext> contextFactory = default!;
         private readonly IMapper mapper = default!;
+        private readonly IPublishEndpoint publisher = default!;
         private readonly IModelValidator<CreateLoanModel> createLoanValidator = default!;
         private readonly IModelValidator<CloseLoanModel> closeLoanValidator = default!;
         public LoanService(IDbContextFactory<LoansDbContext> factory, IMapper mapper,
+            IPublishEndpoint publisher,
             IModelValidator<CreateLoanModel> createLoanValidator,
             IModelValidator<CloseLoanModel> closeLoanValidator) : base()
         {
             this.contextFactory = factory;
             this.mapper = mapper;
+            this.publisher = publisher;
             this.createLoanValidator = createLoanValidator;
             this.closeLoanValidator = closeLoanValidator;
         }
@@ -45,8 +50,12 @@ namespace Scholarship.Service.Loans.Infrastructure
                 var record = await dbContext.Loans.FirstOrDefaultAsync(item => item.Uuid 
                     == loanInfo.LoanUuid);
                 if (record == null) throw new ProcessException("Запись займа не найдена");
-                
-                record.CloseTime = loanInfo.CloseTime;
+
+                var saveRequest = this.mapper.Map<SaveHistoryRequest>(record);
+                saveRequest.ClosedTime = loanInfo.CloseTime;
+                await this.publisher.Publish(saveRequest); 
+
+                dbContext.Loans.Remove(record);
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -74,9 +83,9 @@ namespace Scholarship.Service.Loans.Infrastructure
         public async Task RewriteAllLoans(List<RewriteLoanModel> loansList)
         {
             using var dbContext = await this.contextFactory.CreateDbContextAsync();
-            dbContext.Database.ExecuteSqlRaw($"DELETE FROM {nameof(LoanInfo)}");
-
+            await dbContext.Database.ExecuteSqlRawAsync(@"TRUNCATE TABLE ""LoanInfo"" CASCADE;");
             await dbContext.Loans.AddRangeAsync(this.mapper.Map<List<LoanInfo>>(loansList));
+            await dbContext.SaveChangesAsync();
         }
     }
 }

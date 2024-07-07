@@ -11,8 +11,7 @@ namespace Scholarship.Database.Loans.Context
     public class LoansDbContext : DbContext
     {
         public virtual DbSet<LoanInfo> Loans { get; set; } = default!;
-        public LoansDbContext(DbContextOptions<LoansDbContext> options)
-            : base(options) { }
+        public LoansDbContext(DbContextOptions<LoansDbContext> options) : base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder.UseLazyLoadingProxies());

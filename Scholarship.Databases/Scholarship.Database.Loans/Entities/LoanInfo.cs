@@ -14,9 +14,6 @@ namespace Scholarship.Database.Loans.Entities
     public class LoanInfo : object
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int Id { get; set; }
-
-        [Required]
         public virtual Guid Uuid { get; set; } = Guid.NewGuid();
 
         [Required]
@@ -25,8 +22,6 @@ namespace Scholarship.Database.Loans.Entities
 
         public DateOnly OpenTime { get; set; } = default!;
         public DateOnly BeforeTime { get; set; } = default!;
-
-        public DateOnly? CloseTime { get; set; } = default!;
 
         public string CreditorSurname { get; set; } = string.Empty;
         public string CreditorName { get; set; } = string.Empty;

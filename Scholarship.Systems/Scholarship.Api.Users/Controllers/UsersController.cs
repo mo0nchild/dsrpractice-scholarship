@@ -6,6 +6,7 @@ using Scholarship.Database.Users.Entities;
 using Scholarship.Service.Users.Infrastructure;
 using Scholarship.Service.Users.Models;
 using Scholarship.Shared.Commons.Responses;
+using Scholarship.Shared.Commons.Security;
 using System.Net;
 using System.Security.Claims;
 

@@ -1,6 +1,6 @@
 version: '3.4'
-
 services:
+
   scholarship.api.users:
     image: ${DOCKER_REGISTRY-}scholarshipapiusers
     build:
@@ -20,10 +20,15 @@ services:
       context: .
       dockerfile: Scholarship.Systems/Scholarship.Gateway/Dockerfile
 
-
   scholarship.api.backup:
     image: ${DOCKER_REGISTRY-}scholarshipapibackup
     build:
       context: .
       dockerfile: Scholarship.Systems/Scholarship.Api.Backup/Dockerfile
+
+  scholarship.api.history:
+    image: ${DOCKER_REGISTRY-}scholarshipapihistory
+    build:
+      context: .
+      dockerfile: Scholarship.Systems/Scholarship.Api.History/Dockerfile
 

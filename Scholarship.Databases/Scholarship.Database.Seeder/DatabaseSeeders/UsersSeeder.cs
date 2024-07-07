@@ -43,7 +43,7 @@ namespace Scholarship.Database.Seeder.DatabaseSeeders
                 {
                     IdentityRoleScopes.Admin,
                     IdentityRoleScopes.User
-                }.Select((item, index) => new UserRole() { Id = index + 1, Name = item }));
+                }.Select((item, index) => new UserRole() { Uuid = Guid.NewGuid(), Name = item }));
                 await dbContext.SaveChangesAsync();
             }
         }

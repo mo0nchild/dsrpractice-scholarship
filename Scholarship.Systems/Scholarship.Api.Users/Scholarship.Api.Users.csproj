@@ -31,6 +31,7 @@
     <ProjectReference Include="..\..\Scholarship.Services\Scholarship.Service.Users\Scholarship.Service.Users.csproj" />
     <ProjectReference Include="..\..\Scholarship.Services\Scholarship.Services.Tokens\Scholarship.Services.Tokens.csproj" />
     <ProjectReference Include="..\..\Scholarship.Shared\Scholarship.Shared.Commons\Scholarship.Shared.Commons.csproj" />
+    <ProjectReference Include="..\..\Scholarship.Shared\Scholarship.Shared.Messages\Scholarship.Shared.Messages.csproj" />
   </ItemGroup>
 
   <ItemGroup>

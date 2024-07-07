@@ -14,14 +14,11 @@ namespace Scholarship.Database.Users.Entities
     public class RefreshToken : object
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int Id { get; set; }
-
-        [Required]
         public virtual Guid Uuid { get; set; } = Guid.NewGuid();
 
         public string Token { get; set; } = string.Empty;
 
-        public int UserInfoId { get; set; } = default!;
+        public Guid UserInfoUuid { get; set; } = default!;
         public virtual UserInfo UserInfo { get; set; } = default!;
     }
 }

@@ -27,28 +27,20 @@ namespace Scholarship.Database.Users.Migrations
 
             modelBuilder.Entity("Scholarship.Database.Users.Entities.RefreshToken", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Uuid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserInfoId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("Uuid")
+                    b.Property<Guid>("UserInfoUuid")
                         .HasColumnType("uuid");
 
-                    b.HasKey("Id");
+                    b.HasKey("Uuid");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.HasIndex("UserInfoId")
+                    b.HasIndex("UserInfoUuid")
                         .IsUnique();
 
                     b.HasIndex("Uuid")
@@ -59,11 +51,9 @@ namespace Scholarship.Database.Users.Migrations
 
             modelBuilder.Entity("Scholarship.Database.Users.Entities.UserInfo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Uuid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -80,21 +70,15 @@ namespace Scholarship.Database.Users.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("Uuid")
+                    b.Property<Guid>("RoleUuid")
                         .HasColumnType("uuid");
 
-                    b.HasKey("Id");
+                    b.HasKey("Uuid");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.HasIndex("RoleId");
+                    b.HasIndex("RoleUuid");
 
                     b.HasIndex("Uuid")
                         .IsUnique();
@@ -104,23 +88,21 @@ namespace Scholarship.Database.Users.Migrations
 
             modelBuilder.Entity("Scholarship.Database.Users.Entities.UserRole", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Uuid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
+                    b.HasKey("Uuid");
 
                     b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("Uuid")
                         .IsUnique();
 
                     b.ToTable("UserRole", "public");
@@ -130,7 +112,7 @@ namespace Scholarship.Database.Users.Migrations
                 {
                     b.HasOne("Scholarship.Database.Users.Entities.UserInfo", "UserInfo")
                         .WithOne("RefreshToken")
-                        .HasForeignKey("Scholarship.Database.Users.Entities.RefreshToken", "UserInfoId")
+                        .HasForeignKey("Scholarship.Database.Users.Entities.RefreshToken", "UserInfoUuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -141,7 +123,7 @@ namespace Scholarship.Database.Users.Migrations
                 {
                     b.HasOne("Scholarship.Database.Users.Entities.UserRole", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("RoleUuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 using Scholarship.Service.Users.Infrastructure;
-using Scholarship.Shared.Commons.TransitModels;
+using Scholarship.Shared.Messages.UsersMessages;
 
 namespace Scholarship.Api.Users.Consumers
 {

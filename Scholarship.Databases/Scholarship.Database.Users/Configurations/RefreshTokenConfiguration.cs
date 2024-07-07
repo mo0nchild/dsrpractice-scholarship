@@ -15,13 +15,11 @@ namespace Scholarship.Database.Users.Configurations
         public void Configure(EntityTypeBuilder<RefreshToken> builder)
         {
             builder.ToTable(nameof(RefreshToken), "public");
-
-            builder.HasIndex(item => item.Id).IsUnique();
             builder.HasIndex(item => item.Uuid).IsUnique();
 
             builder.HasOne(item => item.UserInfo).WithOne(item => item.RefreshToken)
-                .HasForeignKey((RefreshToken item) => item.UserInfoId)
-                .HasPrincipalKey((UserInfo item) => item.Id)
+                .HasForeignKey((RefreshToken item) => item.UserInfoUuid)
+                .HasPrincipalKey((UserInfo item) => item.Uuid)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

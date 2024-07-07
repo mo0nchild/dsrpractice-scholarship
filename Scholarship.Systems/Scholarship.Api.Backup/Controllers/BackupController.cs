@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Scholarship.Service.Backup.Infrastructure;
@@ -13,7 +14,7 @@ namespace Scholarship.Api.Backup.Controllers
     public class BackupController : ControllerBase
     {
         private ILogger<BackupController> Logger { get; set; } = default!;
-        protected Guid UserUuid { get => this.User.GetUserUuid() ?? throw new ProcessException("Не найден Uuid пользователя"); }
+        protected Guid UserUuid { get => this.User.GetUserUuid() ?? throw new ProcessException("User Uuid not found"); }
 
         private readonly IBackupService backupService = default!;
         private readonly IMapper mapper = default!;
@@ -25,11 +26,24 @@ namespace Scholarship.Api.Backup.Controllers
         }
         [Authorize("Admin", AuthenticationSchemes = UsersAuthenticateSchemeOptions.DefaultScheme)]
         [Route("get"), HttpGet]
-        [ProducesResponseType(typeof(SucceedResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(FileResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetBackupHandler()
         {
-            return this.Ok(new SucceedResponse() { Message = "Тест" });
+            var backupData = await this.backupService.GetDbFromBytes();
+            this.Logger.LogInformation("Receiving a Backup file");
+            return this.File(backupData, "application/octet-stream");
+        }
+        [Authorize("Admin", AuthenticationSchemes = UsersAuthenticateSchemeOptions.DefaultScheme)]
+        [Route("load"), HttpPost]
+        [ProducesResponseType(typeof(SucceedResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> LoadBackupHandler([FromForm] IFormFile backupFile)
+        {
+            using var memoryStream = new MemoryStream();
+            await backupFile.CopyToAsync(memoryStream);
+            await this.backupService.LoadDbFromBytes(memoryStream.ToArray());
+            return this.Ok(new SucceedResponse() { Message = "Backup file uploaded successfully" });
         }
     }
 }

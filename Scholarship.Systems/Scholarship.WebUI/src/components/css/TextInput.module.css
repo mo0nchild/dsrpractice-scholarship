@@ -1,0 +1,16 @@
+.input-content {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+    margin-bottom: 10px;
+    & > label {
+        font-size: 14px;
+    }
+}
+.input-control, .input-control:focus {
+    background-color: var(--app-second-color);
+    color: #FFF;
+    resize: none;
+    font-size: 14px !important;
+}

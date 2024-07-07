@@ -14,9 +14,6 @@ namespace Scholarship.Database.Users.Entities
     public class UserInfo : object
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int Id { get; set; }
-
-        [Required]
         public virtual Guid Uuid { get; set; } = Guid.NewGuid();
 
         [Required]
@@ -25,7 +22,7 @@ namespace Scholarship.Database.Users.Entities
 
         public string Password { get; set; } = string.Empty;
 
-        public int RoleId { get; set; } = default!;
+        public Guid RoleUuid { get; set; } = default!;
         public virtual UserRole Role { get; set; } = default!;
 
         public virtual RefreshToken RefreshToken { get; set; } = new();

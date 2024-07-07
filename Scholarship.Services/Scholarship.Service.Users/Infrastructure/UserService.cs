@@ -26,7 +26,7 @@ namespace Scholarship.Service.Users.Infrastructure
 {
     using static System.Runtime.InteropServices.JavaScript.JSType;
     using BCryptType = BCrypt.Net.BCrypt;
-    public class UserService : IUserService
+    internal class UserService : IUserService
     {
         private readonly IDbContextFactory<UsersDbContext> contextFactory = default!;
         private readonly IMapper mapper = default!;
@@ -154,9 +154,13 @@ namespace Scholarship.Service.Users.Infrastructure
         public async Task<List<RewriteUserModel>> GetAllUsers()
         {
             using var dbContext = await this.contextFactory.CreateDbContextAsync();
-            var recordsList = dbContext.UserInfos.AsNoTracking().ToListAsync();
-
-            return this.mapper.Map<List<RewriteUserModel>>(recordsList);
+            var recordsList = await dbContext.UserInfos.Include(item => item.Role).ToListAsync();
+            return recordsList.Select(item =>
+            {
+                var result = this.mapper.Map<RewriteUserModel>(item);
+                result.RoleName = item.Role.Name;
+                return result;
+            }).ToList();
         }
         public async Task RewriteAllUsers(List<RewriteUserModel> usersList)
         {
@@ -171,7 +175,7 @@ namespace Scholarship.Service.Users.Infrastructure
                     return newRecord;
                 })
                 .ToList();
-            dbContext.Database.ExecuteSqlRaw($"DELETE FROM {nameof(UserInfo)}");
+            await dbContext.Database.ExecuteSqlRawAsync(@"TRUNCATE TABLE ""UserInfo"" CASCADE;");
             await dbContext.UserInfos.AddRangeAsync(newRecords);
             await dbContext.SaveChangesAsync();
         }

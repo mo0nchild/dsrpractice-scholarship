@@ -3,7 +3,7 @@ using FluentValidation;
 using MassTransit;
 using Scholarship.Database.Loans.Entities;
 using Scholarship.Shared.Commons.Exceptions;
-using Scholarship.Shared.Commons.TransitModels;
+using Scholarship.Shared.Messages.UsersMessages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace Scholarship.Service.Loans.Models
                 {
                     var response = requestClient.GetResponse<UserExistsResponse>(new UserExistsRequest()
                     {
-                        UserUuid = Guid.NewGuid()
+                        UserUuid = item
                     }).Result;
                     ProcessException.ThrowIf(() => response == null, "Не удалось проверить пользователя");
                     return response.Message.Exists;

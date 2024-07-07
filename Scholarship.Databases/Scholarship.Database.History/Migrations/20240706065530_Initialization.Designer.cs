@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Scholarship.Database.Loans.Context;
+using Scholarship.Database.History.Context;
 
 #nullable disable
 
-namespace Scholarship.Database.Loans.Migrations
+namespace Scholarship.Database.History.Migrations
 {
-    [DbContext(typeof(LoansDbContext))]
-    [Migration("20240629225129_Initialization")]
+    [DbContext(typeof(HistoryDbContext))]
+    [Migration("20240706065530_Initialization")]
     partial class Initialization
     {
         /// <inheritdoc />
@@ -28,13 +28,11 @@ namespace Scholarship.Database.Loans.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Scholarship.Database.Loans.Entities.LoanInfo", b =>
+            modelBuilder.Entity("Scholarship.Database.History.Entities.ClosedLoanInfo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Uuid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateOnly>("BeforeTime")
                         .HasColumnType("date");
@@ -42,7 +40,7 @@ namespace Scholarship.Database.Loans.Migrations
                     b.Property<Guid>("ClientUuid")
                         .HasColumnType("uuid");
 
-                    b.Property<DateOnly?>("CloseTime")
+                    b.Property<DateOnly>("ClosedTime")
                         .HasColumnType("date");
 
                     b.Property<string>("CreditorName")
@@ -66,18 +64,12 @@ namespace Scholarship.Database.Loans.Migrations
                     b.Property<DateOnly>("OpenTime")
                         .HasColumnType("date");
 
-                    b.Property<Guid>("Uuid")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
+                    b.HasKey("Uuid");
 
                     b.HasIndex("Uuid")
                         .IsUnique();
 
-                    b.ToTable("LoanInfo", "public");
+                    b.ToTable("ClosedLoanInfo", "public");
                 });
 #pragma warning restore 612, 618
         }

@@ -35,6 +35,18 @@
 					"Port": 8080
 				}
 			]
+		},
+		{
+			"UpstreamHttpMethod": [ "Get" ],
+			"UpstreamPathTemplate": "/history/{url}",
+			"DownstreamPathTemplate": "/history/{url}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "scholarship.history",
+					"Port": 8080
+				}
+			]
 		}
 	],
 	"GlobalConfiguration": {

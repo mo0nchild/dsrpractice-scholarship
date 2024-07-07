@@ -17,8 +17,6 @@ namespace Scholarship.Service.Loans.Models
         public DateOnly OpenTime { get; set; } = default!;
         public DateOnly BeforeTime { get; set; } = default!;
 
-        public DateOnly? CloseTime { get; set; } = default!;
-
         public CreditorInfo Creditor { get; set; } = default!;
     }
     public class CreditorInfo : object 

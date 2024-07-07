@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Scholarship.Database.Loans.Migrations
+namespace Scholarship.Database.History.Migrations
 {
     /// <inheritdoc />
     public partial class Initialization : Migration
@@ -16,38 +15,29 @@ namespace Scholarship.Database.Loans.Migrations
                 name: "public");
 
             migrationBuilder.CreateTable(
-                name: "LoanInfo",
+                name: "ClosedLoanInfo",
                 schema: "public",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Uuid = table.Column<Guid>(type: "uuid", nullable: false),
                     ClientUuid = table.Column<Guid>(type: "uuid", nullable: false),
                     MoneyAmount = table.Column<double>(type: "double precision", nullable: false),
                     OpenTime = table.Column<DateOnly>(type: "date", nullable: false),
                     BeforeTime = table.Column<DateOnly>(type: "date", nullable: false),
-                    CloseTime = table.Column<DateOnly>(type: "date", nullable: true),
+                    ClosedTime = table.Column<DateOnly>(type: "date", nullable: false),
                     CreditorSurname = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CreditorName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CreditorPatronymic = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LoanInfo", x => x.Id);
+                    table.PrimaryKey("PK_ClosedLoanInfo", x => x.Uuid);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LoanInfo_Id",
+                name: "IX_ClosedLoanInfo_Uuid",
                 schema: "public",
-                table: "LoanInfo",
-                column: "Id",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LoanInfo_Uuid",
-                schema: "public",
-                table: "LoanInfo",
+                table: "ClosedLoanInfo",
                 column: "Uuid",
                 unique: true);
         }
@@ -56,7 +46,7 @@ namespace Scholarship.Database.Loans.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "LoanInfo",
+                name: "ClosedLoanInfo",
                 schema: "public");
         }
     }

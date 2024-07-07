@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 using Scholarship.Service.Loans.Infrastructure;
-using Scholarship.Shared.Commons.TransitModels;
+using Scholarship.Shared.Messages.LoansMessages;
 
 namespace Scholarship.Api.Loans.Consumers
 {
@@ -23,12 +23,11 @@ namespace Scholarship.Api.Loans.Consumers
                     Uuid = item.Uuid,
                     ClientUuid = item.ClientUuid,
                     OpenTime = item.OpenTime,
-                    BeforeTime = item.BeforeTime,
-                    CloseTime = item.CloseTime,
                     CreditorName = item.Creditor.Name,
                     CreditorPatronymic = item.Creditor.Patronymic,
                     CreditorSurname = item.Creditor.Surname,
                     MoneyAmount = item.MoneyAmount,
+                    BeforeTime = item.BeforeTime,
                 }).ToList()
             });
         }

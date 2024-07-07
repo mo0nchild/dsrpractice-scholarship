@@ -35,11 +35,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scholarship.Database.Seeder
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{014CE006-D63C-4156-A90D-7D87F45CB4F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholarship.Gateway", "Scholarship.Systems\Scholarship.Gateway\Scholarship.Gateway.csproj", "{055DED2E-D89B-4A5F-AD29-43CA89242F36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scholarship.Gateway", "Scholarship.Systems\Scholarship.Gateway\Scholarship.Gateway.csproj", "{055DED2E-D89B-4A5F-AD29-43CA89242F36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholarship.Service.Backup", "Scholarship.Services\Scholarship.Service.Backup\Scholarship.Service.Backup.csproj", "{2DF53367-94DB-4F61-AA7A-6F78EFE1ED67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scholarship.Service.Backup", "Scholarship.Services\Scholarship.Service.Backup\Scholarship.Service.Backup.csproj", "{2DF53367-94DB-4F61-AA7A-6F78EFE1ED67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholarship.Api.Backup", "Scholarship.Systems\Scholarship.Api.Backup\Scholarship.Api.Backup.csproj", "{32F3B75A-23A6-404C-88CA-62046D56F9ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scholarship.Api.Backup", "Scholarship.Systems\Scholarship.Api.Backup\Scholarship.Api.Backup.csproj", "{32F3B75A-23A6-404C-88CA-62046D56F9ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scholarship.Shared.Messages", "Scholarship.Shared\Scholarship.Shared.Messages\Scholarship.Shared.Messages.csproj", "{489127F2-307D-4B29-9887-3AC160B7B3C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholarship.Api.History", "Scholarship.Systems\Scholarship.Api.History\Scholarship.Api.History.csproj", "{11F53C81-5DA5-41BB-B32A-C4EFD730D974}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholarship.Service.History", "Scholarship.Services\Scholarship.Service.History\Scholarship.Service.History.csproj", "{55332567-40BD-46A3-A3E6-90F0B2A0CAE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholarship.Database.History", "Scholarship.Databases\Scholarship.Database.History\Scholarship.Database.History.csproj", "{5786E30A-89E4-4343-834D-093736E5ADC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +107,22 @@ Global
 		{32F3B75A-23A6-404C-88CA-62046D56F9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32F3B75A-23A6-404C-88CA-62046D56F9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32F3B75A-23A6-404C-88CA-62046D56F9ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{489127F2-307D-4B29-9887-3AC160B7B3C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{489127F2-307D-4B29-9887-3AC160B7B3C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{489127F2-307D-4B29-9887-3AC160B7B3C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{489127F2-307D-4B29-9887-3AC160B7B3C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11F53C81-5DA5-41BB-B32A-C4EFD730D974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11F53C81-5DA5-41BB-B32A-C4EFD730D974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11F53C81-5DA5-41BB-B32A-C4EFD730D974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11F53C81-5DA5-41BB-B32A-C4EFD730D974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55332567-40BD-46A3-A3E6-90F0B2A0CAE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55332567-40BD-46A3-A3E6-90F0B2A0CAE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55332567-40BD-46A3-A3E6-90F0B2A0CAE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55332567-40BD-46A3-A3E6-90F0B2A0CAE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5786E30A-89E4-4343-834D-093736E5ADC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5786E30A-89E4-4343-834D-093736E5ADC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5786E30A-89E4-4343-834D-093736E5ADC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5786E30A-89E4-4343-834D-093736E5ADC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +142,10 @@ Global
 		{055DED2E-D89B-4A5F-AD29-43CA89242F36} = {014CE006-D63C-4156-A90D-7D87F45CB4F3}
 		{2DF53367-94DB-4F61-AA7A-6F78EFE1ED67} = {55479428-5919-450F-91EC-DE1A8D8A9666}
 		{32F3B75A-23A6-404C-88CA-62046D56F9ED} = {0C7F917E-B529-48CA-BADB-3B1EF21FF8A3}
+		{489127F2-307D-4B29-9887-3AC160B7B3C1} = {571BD000-77E8-4CEA-800E-C89C07897D47}
+		{11F53C81-5DA5-41BB-B32A-C4EFD730D974} = {0C7F917E-B529-48CA-BADB-3B1EF21FF8A3}
+		{55332567-40BD-46A3-A3E6-90F0B2A0CAE6} = {55479428-5919-450F-91EC-DE1A8D8A9666}
+		{5786E30A-89E4-4343-834D-093736E5ADC5} = {E0E1C0B1-97B3-4FB5-A175-002DE0E7B9AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97D0BFA1-6EF9-48FF-9FB7-F7E62D8F61FA}

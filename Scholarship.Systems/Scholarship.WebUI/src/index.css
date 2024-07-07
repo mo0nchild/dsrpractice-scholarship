@@ -1,0 +1,28 @@
+:root {
+	--app-link-color: #FFF;
+	--app-main-color: #242424;
+	--app-second-color: #323232;
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+  
+	color: rgba(255, 255, 255, 0.87);
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+}
+html, body {
+	width: 100%;
+	height: 100%;
+	scrollbar-color: #323232 #282828;
+	scrollbar-width: thin;
+}
+p, label, span {
+	margin: 0px;
+}
+a {
+	text-decoration: none;
+	color: var(--app-link-color);
+}
+h1 {
+	font-size: 24px;
+}

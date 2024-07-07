@@ -14,5 +14,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Scholarship.Databases\Scholarship.Database.Loans\Scholarship.Database.Loans.csproj" />
 		<ProjectReference Include="..\..\Scholarship.Shared\Scholarship.Shared.Commons\Scholarship.Shared.Commons.csproj" />
+		<ProjectReference Include="..\..\Scholarship.Shared\Scholarship.Shared.Messages\Scholarship.Shared.Messages.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SystemDbBackup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <UsersList>
+    <UserItem>
+      <Uuid>02aebf91-ec8e-4ea9-9566-2b6cc35791ec</Uuid>
+      <Email>admin@gmail.com</Email>
+      <Name>AdminUser</Name>
+      <Password>$2a$11$znAvMbgXhcusCxTxUOMtheCmZzslgBnPgHl6FcPPE4ogWJP.lWhLm</Password>
+      <RoleName>Admin</RoleName>
+    </UserItem>
+  </UsersList>
+  <LoansList>
+    <LoanItem>
+      <Uuid>b36e42db-c3c4-46e2-8632-7c89ef8866b6</Uuid>
+      <ClientUuid>02aebf91-ec8e-4ea9-9566-2b6cc35791ec</ClientUuid>
+      <MoneyAmount>5000</MoneyAmount>
+      <OpenTime>2024-01-30</OpenTime>
+      <BeforeTime>2024-07-01</BeforeTime>
+      <CreditorSurname>Никитин</CreditorSurname>
+      <CreditorName>Михаил</CreditorName>
+      <CreditorPatronymic>Ильич</CreditorPatronymic>
+    </LoanItem>
+  </LoansList>
+  <HistoryList>
+    <HistoryItem>
+      <Uuid>63b40f58-1e51-4db6-be5e-74fc57fe50c3</Uuid>
+      <ClientUuid>02aebf91-ec8e-4ea9-9566-2b6cc35791ec</ClientUuid>
+      <MoneyAmount>1000</MoneyAmount>
+      <OpenTime>2024-01-30</OpenTime>
+      <BeforeTime>2024-07-01</BeforeTime>
+      <ClosedTime>2025-07-01</ClosedTime>
+      <CreditorSurname>Соболева</CreditorSurname>
+      <CreditorName>Варвара</CreditorName>
+      <CreditorPatronymic>Михайловна</CreditorPatronymic>
+    </HistoryItem>
+  </HistoryList>
+</SystemDbBackup>

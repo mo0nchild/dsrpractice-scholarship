@@ -14,7 +14,7 @@ namespace Scholarship.Database.Users.Entities
     public class UserRole : object
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int Id { get; set; }
+        public virtual Guid Uuid { get; set; }
         public string Name { get; set; } = string.Empty;
 
         public virtual List<UserInfo> Users { get; set; } = new();

@@ -33,8 +33,7 @@ namespace Scholarship.Api.Loans
                 application.UseSwaggerUI();
             }
             application.UseHttpsRedirection();
-            application.UseExceptionsHandler<ValidationException>();
-            application.UseExceptionsHandler<ProcessException>();
+            application.UseExceptionsHandler();
 
             application.UseAuthentication();
             application.UseAuthorization();

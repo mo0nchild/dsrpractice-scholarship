@@ -14,7 +14,7 @@ namespace Scholarship.Database.Users.Configurations
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder.ToTable(nameof(UserRole), "public");
-            builder.HasIndex(item => item.Id).IsUnique();
+            builder.HasIndex(item => item.Uuid).IsUnique();
             builder.HasIndex(item => item.Name).IsUnique();
 
             builder.Property(item => item.Name).HasMaxLength(50);

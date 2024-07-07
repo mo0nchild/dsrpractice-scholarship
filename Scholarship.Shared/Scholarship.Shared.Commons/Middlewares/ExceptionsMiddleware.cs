@@ -11,44 +11,44 @@ using System.Threading.Tasks;
 
 namespace Scholarship.Shared.Commons.Middlewares
 {
-    public class ExceptionsMiddleware<TException> : object where TException : Exception
+    public class ExceptionsMiddleware: object
     {
         private readonly RequestDelegate nextDelegate = default!;
-        private ILogger<ExceptionsMiddleware<TException>> Logger { get; set; } = default!;
+        private ILogger<ExceptionsMiddleware> Logger { get; set; } = default!;
 
-        public ExceptionsMiddleware(RequestDelegate next, ILogger<ExceptionsMiddleware<TException>> logger) : base()
+        public ExceptionsMiddleware(RequestDelegate next, ILogger<ExceptionsMiddleware> logger) : base()
         {
-            this.Logger = logger;
             this.nextDelegate = next;
+            this.Logger = logger;
         }
         public async Task Invoke(HttpContext context)
         {
             try { await this.nextDelegate(context); }
-            catch (TException error)
+            catch (Exception error)
             {
-                this.Logger.LogWarning(error, $"Возникло исключение при запросе: {error.Message}");
+                this.Logger.LogWarning($"An exception occurred during the request: {error.GetType().Name}");
+                this.Logger.LogWarning($"Exception message: {error.Message}");
                 await HandleExceptionAsync(context, error);
             }
         }
-        protected virtual Task HandleExceptionAsync(HttpContext context, TException exception)
+        protected virtual async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
 
-            var result = new
-            {
-                title = $"Возникло исключение при запросе: {exception.GetType().Name}",
-                errors = exception.Message
-            };
-            return context.Response.WriteAsync(JsonConvert.SerializeObject(result));
+            var result = new ExceptionMessage(
+                title: $"Exception type: {exception.GetType().Name}",
+                errors: exception.Message
+            );  
+            await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
         }
     }
+    public record class ExceptionMessage(string title, string errors);
     public static class ExceptionsMiddlewareExtension : object
     {
-        public static IApplicationBuilder UseExceptionsHandler<TException>(this IApplicationBuilder builder)
-            where TException : Exception
+        public static IApplicationBuilder UseExceptionsHandler(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<ExceptionsMiddleware<TException>>();
+            return builder.UseMiddleware<ExceptionsMiddleware>();
         }
     }
 }

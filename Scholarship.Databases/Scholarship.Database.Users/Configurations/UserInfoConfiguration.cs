@@ -17,7 +17,6 @@ namespace Scholarship.Database.Users.Configurations
             builder.ToTable(nameof(UserInfo), "public");
 
             builder.HasIndex(item => item.Uuid).IsUnique();
-            builder.HasIndex(item => item.Id).IsUnique();
             builder.HasIndex(item => item.Email).IsUnique();
 
             builder.Property(item => item.Name).HasMaxLength(50);
@@ -26,8 +25,8 @@ namespace Scholarship.Database.Users.Configurations
             builder.Property(item => item.Password).HasMaxLength(255);
 
             builder.HasOne(item => item.Role).WithMany(item => item.Users)
-                .HasPrincipalKey(item => item.Id)
-                .HasForeignKey(item => item.RoleId)
+                .HasPrincipalKey(item => item.Uuid)
+                .HasForeignKey(item => item.RoleUuid)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

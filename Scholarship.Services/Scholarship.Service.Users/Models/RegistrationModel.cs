@@ -37,7 +37,7 @@ namespace Scholarship.Service.Users.Models
                     Uuid = Guid.NewGuid()
                 }));
             base.CreateMap<RegistrationModel, UserModel>()
-                .ForMember(item => item.Role, options => options.MapFrom(p => p.RoleName));
+                .ForMember(item => item.RoleName, options => options.MapFrom(p => p.RoleName));
         }
     }
     public class RegistrationModelValidator : AbstractValidator<RegistrationModel>

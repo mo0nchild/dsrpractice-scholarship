@@ -5,7 +5,6 @@ using Scholarship.Api.Backup.Configurations;
 using Scholarship.Shared.Commons.Configurations;
 using Scholarship.Shared.Commons.Exceptions;
 using Scholarship.Shared.Commons.Middlewares;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Scholarship.Api.Backup
 {
@@ -30,8 +29,7 @@ namespace Scholarship.Api.Backup
                 application.UseSwaggerUI();
             }
             application.UseHttpsRedirection();
-            application.UseExceptionsHandler<ValidationException>();
-            application.UseExceptionsHandler<ProcessException>();
+            application.UseExceptionsHandler();
 
             application.UseAuthentication();
             application.UseAuthorization();

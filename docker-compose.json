@@ -115,6 +115,33 @@
 			},
 			"restart": "on-failure:10"
 		},
+		"scholarship.history": {
+			"image": "scholarship.history",
+			"build": {
+				"context": ".",
+				"dockerfile": "Scholarship.Systems/Scholarship.Api.History/Dockerfile"
+			},
+			"environment": {
+				"ASPNETCORE_ENVIRONMENT": "Development",
+				"ASPNETCORE_HTTP_PORTS": "8080"
+			},
+			"ports": [ "8084:8080" ],
+			"networks": {
+				"scholarship-network": {
+					"aliases": [ "scholarship.history" ],
+					"ipv4_address": "172.24.0.8"
+				}
+			},
+			"depends_on": {
+				"postgres": {
+					"condition": "service_healthy"
+				},
+				"rabbitmq": {
+					"condition": "service_started"
+				}
+			},
+			"restart": "on-failure:10"
+		},
 		"postgres": {
 			"image": "postgres:latest",
 			"container_name": "postgres",

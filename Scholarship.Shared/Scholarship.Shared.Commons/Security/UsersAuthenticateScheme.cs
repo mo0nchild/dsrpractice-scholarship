@@ -48,7 +48,7 @@ namespace Scholarship.Shared.Commons.Security
                 new Claim(ClaimTypes.PrimarySid, identityResponse.Uuid.ToString()),
                 new Claim(ClaimTypes.Name, identityResponse.Name),
                 new Claim(ClaimTypes.Email, identityResponse.Email),
-                new Claim(ClaimTypes.Role, identityResponse.Role),
+                new Claim(ClaimTypes.Role, identityResponse.RoleName),
             };
             var identity = new ClaimsIdentity(claims, this.Scheme.Name);
             var principal = new ClaimsPrincipal(identity);
@@ -57,7 +57,7 @@ namespace Scholarship.Shared.Commons.Security
         public class IdentityResponse : object
         {
             public Guid Uuid { get; set; } = Guid.Empty;
-            public string Role { get; set; } = string.Empty;
+            public string RoleName { get; set; } = string.Empty;
             public string Email { get; set; } = string.Empty;
             public string Name { get; set; } = string.Empty;
         }

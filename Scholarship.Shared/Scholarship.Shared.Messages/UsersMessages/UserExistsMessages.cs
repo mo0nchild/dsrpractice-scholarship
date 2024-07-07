@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scholarship.Shared.Commons.TransitModels
+namespace Scholarship.Shared.Messages.UsersMessages
 {
     public class UserExistsRequest : object
     {

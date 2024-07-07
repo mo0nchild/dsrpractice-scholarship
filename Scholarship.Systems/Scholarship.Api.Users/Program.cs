@@ -30,9 +30,7 @@ namespace Scholarship.Api.Users
                 application.UseSwaggerUI();
             }
             application.UseHttpsRedirection();
-
-            application.UseExceptionsHandler<ValidationException>();
-            application.UseExceptionsHandler<ProcessException>();
+            application.UseExceptionsHandler();
 
             application.UseAuthorization();
             application.MapControllers();
