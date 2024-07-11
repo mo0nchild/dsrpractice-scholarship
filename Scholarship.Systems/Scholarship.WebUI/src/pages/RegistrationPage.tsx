@@ -1,12 +1,21 @@
 import { Button } from "react-bootstrap";
 import TextInput from "../components/TextInput";
-import React from "react";
+import React, { useEffect } from "react";
 import style from './css/Registration.module.css'
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
 
 export default function RegistrationPage(): React.JSX.Element {
     const emailRef = React.createRef<HTMLInputElement>();
     const passwordRef = React.createRef<HTMLInputElement>();
     const nameRef = React.createRef<HTMLInputElement>();
+    
+    const {info, error} = useAppSelector(item => item.user);
+    const dispatcher = useAppDispatch();
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(info != null) navigate('/user')
+    }, [info])
     return (
     <div className={style['main-content']}>
         <div className={style['auth-panel']}>

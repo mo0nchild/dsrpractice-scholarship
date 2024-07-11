@@ -1,0 +1,13 @@
+.toast-header {
+    background-color: var(--app-main-color) !important;     
+}
+.toast-header > strong {
+    color: #FFF
+}
+.toast-body {
+    background-color: var(--app-main-color) !important;   
+}
+.toast {
+    border: 1px solid #FFF !important;
+    border-radius: 5px !important;
+}

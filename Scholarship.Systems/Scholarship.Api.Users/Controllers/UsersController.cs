@@ -5,10 +5,13 @@ using Scholarship.Api.Users.Models;
 using Scholarship.Database.Users.Entities;
 using Scholarship.Service.Users.Infrastructure;
 using Scholarship.Service.Users.Models;
+using Scholarship.Shared.Commons.Exceptions;
 using Scholarship.Shared.Commons.Responses;
 using Scholarship.Shared.Commons.Security;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Security.Claims;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Scholarship.Api.Users.Controllers
 {
@@ -45,11 +48,21 @@ namespace Scholarship.Api.Users.Controllers
         [Route("info"), HttpGet]
         [ProducesResponseType(typeof(UserModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetInfoHandler([FromQuery] string token)
+        public async Task<IActionResult> GetInfoHandler([FromHeader] string? authorization)
         {
-            var data = await this.userService.GetUserByAccess(token);
-            if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Невозможно получить ответ" });
-            return this.Ok(data);
+            if (AuthenticationHeaderValue.TryParse(authorization, out var headerValue))
+            {
+                var scheme = headerValue.Scheme;
+                var parameter = headerValue.Parameter;
+                try
+                {
+                    var data = await this.userService.GetUserByAccess(authorization.Split(' ')[1]);
+                    if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Невозможно получить ответ" });
+                    return this.Ok(data);
+                }
+                catch (AuthException error) { return this.Unauthorized(error.Message); }
+            }
+            return this.Unauthorized("")
         }
         [Route("refresh"), HttpGet]
         [ProducesResponseType(typeof(IdentityModel), (int)HttpStatusCode.OK)]

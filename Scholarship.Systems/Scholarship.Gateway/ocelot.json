@@ -2,7 +2,7 @@
 	"Routes": [
 		{
 			"UpstreamHttpMethod": [ "Get", "Post" ],
-			"UpstreamPathTemplate": "/users/{url}",
+			"UpstreamPathTemplate": "/api/users/{url}",
 			"DownstreamPathTemplate": "/users/{url}",
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
@@ -14,7 +14,7 @@
 		},
 		{
 			"UpstreamHttpMethod": [ "Get", "Post", "Put" ],
-			"UpstreamPathTemplate": "/loans/{url}",
+			"UpstreamPathTemplate": "/api/loans/{url}",
 			"DownstreamPathTemplate": "/loans/{url}",
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
@@ -26,7 +26,7 @@
 		},
 		{
 			"UpstreamHttpMethod": [ "Get", "Post" ],
-			"UpstreamPathTemplate": "/backup/{url}",
+			"UpstreamPathTemplate": "/api/backup/{url}",
 			"DownstreamPathTemplate": "/backup/{url}",
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
@@ -38,7 +38,7 @@
 		},
 		{
 			"UpstreamHttpMethod": [ "Get" ],
-			"UpstreamPathTemplate": "/history/{url}",
+			"UpstreamPathTemplate": "/api/history/{url}",
 			"DownstreamPathTemplate": "/history/{url}",
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [

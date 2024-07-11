@@ -9,7 +9,6 @@ export interface InputProps {
 }
 const TextInput = React.forwardRef<HTMLInputElement,InputProps>((props, ref) => {
     const { title, type, placeholder } = props
-    console.log(style)
     return (
     <div className={style['input-content']}>
         <Form.Label style={{margin: '0px'}}>{title}</Form.Label>

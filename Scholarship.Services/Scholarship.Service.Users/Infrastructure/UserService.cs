@@ -53,7 +53,7 @@ namespace Scholarship.Service.Users.Infrastructure
             var userClaims = await this.tokenService.VerifyAccessToken(accessToken);
             var userUuid = userClaims?.FirstOrDefault(item => item.Type == ClaimTypes.PrimarySid);
 
-            ProcessException.ThrowIf(() => userClaims == null || userUuid == null, "Ошибка в валидации токена");
+            AuthException.ThrowIf(() => userClaims == null || userUuid == null, "Ошибка в валидации токена");
             using (var dbContext = await this.contextFactory.CreateDbContextAsync())
             {
                 var userProfile = await dbContext.UserInfos.Include(item => item.Role)
