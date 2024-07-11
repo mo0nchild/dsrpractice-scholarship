@@ -45,25 +45,25 @@ namespace Scholarship.Service.Users.Models
         public RegistrationModelValidator(IDbContextFactory<UsersDbContext> contextFactory) : base()
         {
             base.RuleFor(item => item.Email)
-                .NotEmpty().WithMessage("Значение почты не может быть пустым")
-                .EmailAddress().WithMessage("Неверный формат почты")
+                .NotEmpty().WithMessage("The mail value cannot be empty")
+                .EmailAddress().WithMessage("Invalid mail format")
                 .Must(item =>
                 {
                     using var context = contextFactory.CreateDbContext();
                     var profile = context.UserInfos.FirstOrDefault(op => op.Email == item);
                     return profile == null;
-                }).WithMessage("Пользователь уже зарегистрирован");
+                }).WithMessage("User is already registered");
             base.RuleFor(item => item.Name)
-                .NotEmpty().WithMessage("Значение имени не может быть пустым")
-                .Length(3, 50).WithMessage("Длина имени между 3 и 50 символами");
+                .NotEmpty().WithMessage("The name value cannot be empty")
+                .Length(3, 50).WithMessage("Name length between 3 and 50 characters");
             base.RuleFor(item => item.RoleName)
-                .NotEmpty().WithMessage("Значение роли не может быть пустым")
+                .NotEmpty().WithMessage("Role value cannot be empty")
                 .Must(item =>
                 {
                     using var context = contextFactory.CreateDbContext();
                     var roleFound = context.UserRoles.FirstOrDefault(op => op.Name == item);
                     return roleFound != null;
-                }).WithMessage("Роль пользователя не найдена");
+                }).WithMessage("User role not found");
         }
     }
 }

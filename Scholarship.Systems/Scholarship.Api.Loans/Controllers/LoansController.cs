@@ -16,7 +16,7 @@ namespace Scholarship.Api.Loans.Controllers
     public class LoansController : ControllerBase
     {
         private ILogger<LoansController> Logger { get; set; } = default!;
-        protected Guid UserUuid { get => this.User.GetUserUuid() ?? throw new ProcessException("Не найден Uuid пользователя"); }
+        protected Guid UserUuid { get => this.User.GetUserUuid() ?? throw new ProcessException("User Uuid not found"); }
 
         private readonly ILoanService loanService = default!;
         private readonly IMapper mapper = default!;
@@ -36,7 +36,7 @@ namespace Scholarship.Api.Loans.Controllers
             model.ClientUuid = this.UserUuid;
 
             await this.loanService.CreateLoan(model);
-            return this.Ok(new SucceedResponse() { Message = "Запись о займе добавлена" });
+            return this.Ok(new SucceedResponse() { Message = "Loan entry added" });
         }
         [Authorize("User", AuthenticationSchemes = UsersAuthenticateSchemeOptions.DefaultScheme)]
         [Route("close"), HttpPut]
@@ -47,10 +47,10 @@ namespace Scholarship.Api.Loans.Controllers
             var model = this.mapper.Map<CloseLoanModel>(request);
             if (!await this.loanService.CheckLoanOwner(model.LoanUuid, this.UserUuid))
             {
-                return this.BadRequest(new ErrorResponse() { Cause = "Запись займа не принадлежит пользователю" });
+                return this.BadRequest(new ErrorResponse() { Cause = "The loan record does not belong to the user" });
             };
             await this.loanService.CloseLoan(model);
-            return this.Ok(new SucceedResponse() { Message = "Запись займа была закрыта" });
+            return this.Ok(new SucceedResponse() { Message = "The loan record was closed" });
         }
         [Authorize("User", AuthenticationSchemes = UsersAuthenticateSchemeOptions.DefaultScheme)]
         [Route("list"), HttpGet]

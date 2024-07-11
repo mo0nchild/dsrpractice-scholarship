@@ -13,7 +13,7 @@ namespace Scholarship.Api.History.Controllers
     public class HistoryController : ControllerBase
     {
         private ILogger<HistoryController> Logger { get; set; } = default!;
-        protected Guid UserUuid { get => this.User.GetUserUuid() ?? throw new ProcessException("Не найден Uuid пользователя"); }
+        protected Guid UserUuid { get => this.User.GetUserUuid() ?? throw new ProcessException("User Uuid not found"); }
         
         private readonly IHistoryService historyService = default!;
         private readonly IMapper mapper = default!;

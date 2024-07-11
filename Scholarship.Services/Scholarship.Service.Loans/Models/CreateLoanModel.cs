@@ -35,30 +35,30 @@ namespace Scholarship.Service.Loans.Models
         public CreateLoanModelValidator(IRequestClient<UserExistsRequest> requestClient) : base()
         {
             this.RuleFor(item => item.ClientUuid)
-                .NotEmpty().WithMessage("Необходимо значение Uuid клиента")
+                .NotEmpty().WithMessage("Client Uuid required")
                 .Must(item =>
                 {
                     var response = requestClient.GetResponse<UserExistsResponse>(new UserExistsRequest()
                     {
                         UserUuid = item
                     }).Result;
-                    ProcessException.ThrowIf(() => response == null, "Не удалось проверить пользователя");
+                    ProcessException.ThrowIf(() => response == null, "Failed to verify user");
                     return response.Message.Exists;
                 })
-                .WithMessage("Пользователь не найден");
+                .WithMessage("User is not found");
             this.RuleFor(item => item.OpenTime)
-                .NotEmpty().WithMessage("Необходимо установить дату займа")
+                .NotEmpty().WithMessage("Loan date must be set")
                 .Must((model, item) => item <= model.BeforeTime)
-                .WithMessage("Дата начала должна быть раньше ориентировочной даты");
+                .WithMessage("The start date must be earlier than the estimated date");
             this.RuleFor(item => item.CreditorSurname)
-                .NotEmpty().WithMessage("Необходимо указать фамилию кредитора")
-                .Length(3, 100).WithMessage("Длина фамилии кредитора от 3 до 100 символов");
+                .NotEmpty().WithMessage("The creditor's name is required")
+                .Length(3, 100).WithMessage("The length of the creditor's last name is from 3 to 100 characters");
             this.RuleFor(item => item.CreditorName)
-                .NotEmpty().WithMessage("Необходимо указать имя кредитора")
-                .Length(3, 100).WithMessage("Длина имени кредитора от 3 до 100 символов");
+                .NotEmpty().WithMessage("Creditor's name is required")
+                .Length(3, 100).WithMessage("Creditor's name length from 3 to 100 characters");
             this.RuleFor(item => item.CreditorPatronymic)
-                .NotEmpty().WithMessage("Необходимо указать отчество кредитора")
-                .Length(3, 100).WithMessage("Длина отчества кредитора от 3 до 100 символов");
+                .NotEmpty().WithMessage("The lender's middle name must be indicated")
+                .Length(3, 100).WithMessage("The length of the lender's middle name is from 3 to 100 characters");
         }
     }
 }
