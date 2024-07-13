@@ -10,10 +10,10 @@ public static class ValidatorConfiguration : object
 {
     public static Task<IServiceCollection> AddModelsValidators(this IServiceCollection collection)
     {
-        collection.AddFluentValidationAutoValidation(options =>
-        {
-            options.DisableDataAnnotationsValidation = true;
-        });
+        //collection.AddFluentValidationAutoValidation(options =>
+        //{
+        //    options.DisableDataAnnotationsValidation = false,
+        //});
         ValidatorsRegisterHelper.Register(collection);
         collection.AddScoped(typeof(IModelValidator<>), typeof(ModelValidator<>));
 

@@ -58,7 +58,7 @@ namespace Scholarship.Api.Loans.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetLoansListHandler()
         {
-            return this.Ok(await this.loanService.GetLoansFromUuid(this.UserUuid));
+            return this.Ok(await this.loanService.GetLoansByUser(this.UserUuid));
         }
         [Authorize("Admin", AuthenticationSchemes = UsersAuthenticateSchemeOptions.DefaultScheme)]
         [Route("all"), HttpGet]

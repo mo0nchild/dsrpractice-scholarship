@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Scholarship.Database.History.Context;
+using Scholarship.Database.Loans.Context;
 
 #nullable disable
 
-namespace Scholarship.Database.History.Migrations
+namespace Scholarship.Database.Loans.Migrations
 {
-    [DbContext(typeof(HistoryDbContext))]
-    [Migration("20240706065530_Initialization")]
+    [DbContext(typeof(LoansDbContext))]
+    [Migration("20240711195709_Initialization")]
     partial class Initialization
     {
         /// <inheritdoc />
@@ -28,7 +28,7 @@ namespace Scholarship.Database.History.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Scholarship.Database.History.Entities.ClosedLoanInfo", b =>
+            modelBuilder.Entity("Scholarship.Database.Loans.Entities.LoanInfo", b =>
                 {
                     b.Property<Guid>("Uuid")
                         .ValueGeneratedOnAdd()
@@ -40,7 +40,7 @@ namespace Scholarship.Database.History.Migrations
                     b.Property<Guid>("ClientUuid")
                         .HasColumnType("uuid");
 
-                    b.Property<DateOnly>("ClosedTime")
+                    b.Property<DateOnly?>("CloseTime")
                         .HasColumnType("date");
 
                     b.Property<string>("CreditorName")
@@ -69,7 +69,7 @@ namespace Scholarship.Database.History.Migrations
                     b.HasIndex("Uuid")
                         .IsUnique();
 
-                    b.ToTable("ClosedLoanInfo", "public");
+                    b.ToTable("LoanInfo", "public");
                 });
 #pragma warning restore 612, 618
         }

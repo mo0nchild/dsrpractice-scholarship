@@ -4,7 +4,6 @@ using MassTransit.Transports;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Scholarship.Service.Backup.Models;
 using Scholarship.Shared.Commons.Exceptions;
-using Scholarship.Shared.Messages.HistoryMessages;
 using Scholarship.Shared.Messages.LoansMessages;
 using Scholarship.Shared.Messages.UsersMessages;
 using System;
@@ -33,18 +32,15 @@ namespace Scholarship.Service.Backup.Infrastructure
         {
             var usersClient = this.clientFactory.CreateRequestClient<GetAllUsersRequest>();
             var loansClient = this.clientFactory.CreateRequestClient<GetAllLoansRequest>();
-            var historyClient = this.clientFactory.CreateRequestClient<GetAllHistoryRequest>();
 
             var usersList = await usersClient.GetResponse<GetAllUsersResponse>(new GetAllUsersRequest());
             var loansList = await loansClient.GetResponse<GetAllLoansResponse>(new GetAllLoansRequest());
-            var historyList = await historyClient.GetResponse<GetAllHistoryResponse>(new GetAllHistoryRequest());
             using (var memoryStream = new MemoryStream())
             {
                 this.XmlSerializer.Serialize(memoryStream, new BackupXmlModel()
                 {
                     Loans = this.mapper.Map<List<LoansBackupModel>>(loansList.Message.Loans),
                     Users = this.mapper.Map<List<UsersBackupModel>>(usersList.Message.Users),
-                    History = this.mapper.Map<List<HistoryBackupModel>>(historyList.Message.Loans)
                 });
                 return memoryStream.ToArray();
             }
@@ -63,10 +59,6 @@ namespace Scholarship.Service.Backup.Infrastructure
                 await this.publishEndpoint.Publish(new RewriteLoansRequest()
                 {
                     Loans = this.mapper.Map<List<RewriteLoansRequest.LoansItemMessage>>(backupData.Loans)
-                });
-                await this.publishEndpoint.Publish(new RewriteHistoryRequest()
-                {
-                    ClosedLoans = this.mapper.Map<List<RewriteHistoryRequest.LoansItemMessage>>(backupData.History)
                 });
             }
         }

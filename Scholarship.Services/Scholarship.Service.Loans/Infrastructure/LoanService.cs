@@ -6,7 +6,6 @@ using Scholarship.Database.Loans.Entities;
 using Scholarship.Service.Loans.Models;
 using Scholarship.Shared.Commons.Exceptions;
 using Scholarship.Shared.Commons.Validator;
-using Scholarship.Shared.Messages.HistoryMessages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,11 +50,7 @@ namespace Scholarship.Service.Loans.Infrastructure
                     == loanInfo.LoanUuid);
                 if (record == null) throw new ProcessException("Loan record not found");
 
-                var saveRequest = this.mapper.Map<SaveHistoryRequest>(record);
-                saveRequest.ClosedTime = loanInfo.CloseTime;
-                await this.publisher.Publish(saveRequest); 
-
-                dbContext.Loans.Remove(record);
+                record.CloseTime = loanInfo.CloseTime;
                 await dbContext.SaveChangesAsync();
             }
         }
@@ -73,7 +68,7 @@ namespace Scholarship.Service.Loans.Infrastructure
             using var dbContext = await this.contextFactory.CreateDbContextAsync();
             return this.mapper.Map<List<LoanModel>>(await dbContext.Loans.ToListAsync());
         }
-        public async Task<List<LoanModel>> GetLoansFromUuid(Guid clientUuid)
+        public async Task<List<LoanModel>> GetLoansByUser(Guid clientUuid)
         {
             using var dbContext = await this.contextFactory.CreateDbContextAsync();
             var loanRecords = await dbContext.Loans.Where(item => item.ClientUuid == clientUuid)

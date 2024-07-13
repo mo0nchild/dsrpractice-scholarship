@@ -12,3 +12,10 @@
     position: fixed;
     z-index: 1;
 }
+.header-navigation {
+    display: flex;
+    flex-flow: row nowrap; 
+}
+.header-navigation > div {
+    margin: 0px 10px
+}

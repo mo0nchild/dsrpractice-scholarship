@@ -2,7 +2,6 @@
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Scholarship.Database.Loans.Context;
-using Scholarship.Shared.Messages.HistoryMessages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +30,9 @@ namespace Scholarship.Service.Loans.Models
                 .WithMessage("Loan record not found")
                 .Must((model, item) =>
                 {
-                    var checkClient = clientFactory.CreateRequestClient<CheckLoanClosedRequest>();
-                    var result = checkClient.GetResponse<CheckLoanClosedResponse>(new CheckLoanClosedRequest()
-                    {
-                        LoanUuid = item
-                    }).Result;
-                    return !result.Message.Closed;
+                    using var dbContext = contextFactory.CreateDbContext();
+                    var record = dbContext.Loans.FirstOrDefault(p => p.Uuid == item);
+                    return record == null ? true : record.CloseTime == null;
                 })
                 .WithMessage("The loan record is already closed");
             this.RuleFor(item => item.CloseTime)
@@ -46,7 +42,7 @@ namespace Scholarship.Service.Loans.Models
                     using var dbContext = contextFactory.CreateDbContext();
                     var record = dbContext.Loans.FirstOrDefault(item => item.Uuid == model.LoanUuid);
 
-                    return record == null ? true : record.BeforeTime <= item && record.OpenTime <= item;
+                    return record == null ? true : record.OpenTime <= item;
                 })
                 .WithMessage("Closing date must be later than opening date");
         }

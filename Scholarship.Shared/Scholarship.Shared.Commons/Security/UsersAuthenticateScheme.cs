@@ -37,7 +37,7 @@ namespace Scholarship.Shared.Commons.Security
             using (var httpClient = this.httpFactory.CreateClient())
             {
                 httpClient.BaseAddress = this.Options.BaseUrl;
-                var response = await httpClient.GetAsync($"/users/info?token={tokenValue}");
+                var response = await httpClient.GetAsync($"/users/info/service?token={tokenValue}");
                 if (response == null || !response.IsSuccessStatusCode) return AuthenticateResult.NoResult();
 
                 var content = await response.Content.ReadAsStringAsync();

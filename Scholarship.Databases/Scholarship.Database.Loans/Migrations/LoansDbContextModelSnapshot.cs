@@ -37,6 +37,9 @@ namespace Scholarship.Database.Loans.Migrations
                     b.Property<Guid>("ClientUuid")
                         .HasColumnType("uuid");
 
+                    b.Property<DateOnly?>("CloseTime")
+                        .HasColumnType("date");
+
                     b.Property<string>("CreditorName")
                         .IsRequired()
                         .HasMaxLength(100)

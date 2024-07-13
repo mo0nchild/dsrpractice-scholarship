@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Scholarship.Api.Users.Models;
@@ -52,17 +53,21 @@ namespace Scholarship.Api.Users.Controllers
         {
             if (AuthenticationHeaderValue.TryParse(authorization, out var headerValue))
             {
-                var scheme = headerValue.Scheme;
-                var parameter = headerValue.Parameter;
-                try
-                {
-                    var data = await this.userService.GetUserByAccess(authorization.Split(' ')[1]);
-                    if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Невозможно получить ответ" });
-                    return this.Ok(data);
-                }
-                catch (AuthException error) { return this.Unauthorized(error.Message); }
+                return await this.GetInfoByQueryHandler(headerValue.Parameter!);
             }
-            return this.Unauthorized("");
+            return this.Unauthorized("Token not provided");
+        }
+        [Route("info/service"), HttpGet]
+        [ProducesResponseType(typeof(UserModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetInfoByQueryHandler([FromQuery] string token)
+        {
+            try {
+                var data = await this.userService.GetUserByAccess(token);
+                if (data == null) return this.BadRequest(new ErrorResponse() { Cause = "Can't get a response" });
+                return this.Ok(data);
+            }
+            catch (AuthException error) { return this.Unauthorized(error.Message); }
         }
         [Route("refresh"), HttpGet]
         [ProducesResponseType(typeof(IdentityModel), (int)HttpStatusCode.OK)]

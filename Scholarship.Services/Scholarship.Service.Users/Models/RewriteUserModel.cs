@@ -9,14 +9,9 @@ using System.Threading.Tasks;
 
 namespace Scholarship.Service.Users.Models
 {
-    public class RewriteUserModel : object
+    public class RewriteUserModel : UserModel
     {
-        public Guid Uuid { get; set; } = Guid.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-
         public string Password { get; set; } = string.Empty;
-        public string RoleName { get; set; } = string.Empty;
     }
     public class RewriteUserModelProfile : Profile
     {

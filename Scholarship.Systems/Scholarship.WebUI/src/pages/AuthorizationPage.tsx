@@ -6,24 +6,27 @@ import { createRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { loginUser } from '../store/reducers/ActionCreators';
 import ToastError from '../components/ToastError';
+import { userSlice } from '../store/reducers/UserSlice';
+import ProgressLoading from '../components/ProgressLoading';
 
 export default function AuthorizationPage(): React.JSX.Element {
     const emailRef = createRef<HTMLInputElement>();
     const passwordRef = createRef<HTMLInputElement>();
 
-    const {info, error} = useAppSelector(item => item.user);
+    const {info, error, isLoading} = useAppSelector(item => item.user);
     const dispatcher = useAppDispatch();
     const navigate = useNavigate();
     useEffect(() => {
         if(info != null) navigate('/user')
     }, [info])
-    const loginHandler = () => {
-        dispatcher(loginUser(emailRef.current!.value, passwordRef.current!.value));
-        navigate('/user')
+    const loginHandler = async () => {
+        await dispatcher(loginUser(emailRef.current!.value, passwordRef.current!.value));
     }
+    const hideErrorHandler = async () => await dispatcher(userSlice.actions.clearError());
     return (
     <div className={style['main-content']}>
-        { error != null ? <ToastError errorMessage={error}/> : null }
+        <ProgressLoading loading={isLoading}/>
+        { error != null ? <ToastError errorMessage={error} onClose={hideErrorHandler}/> : null }
         <div className={style['auth-panel']}>
             <h1>Авторизация</h1>
             <TextInput title='Почта:' type='text' placeholder='Введите вашу почту'

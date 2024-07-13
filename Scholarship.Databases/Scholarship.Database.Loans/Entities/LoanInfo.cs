@@ -23,6 +23,8 @@ namespace Scholarship.Database.Loans.Entities
         public DateOnly OpenTime { get; set; } = default!;
         public DateOnly BeforeTime { get; set; } = default!;
 
+        public DateOnly? CloseTime { get; set; } = default!;
+
         public string CreditorSurname { get; set; } = string.Empty;
         public string CreditorName { get; set; } = string.Empty;
         public string CreditorPatronymic { get; set; } = string.Empty;

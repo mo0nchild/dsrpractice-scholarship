@@ -26,9 +26,4 @@ services:
       context: .
       dockerfile: Scholarship.Systems/Scholarship.Api.Backup/Dockerfile
 
-  scholarship.api.history:
-    image: ${DOCKER_REGISTRY-}scholarshipapihistory
-    build:
-      context: .
-      dockerfile: Scholarship.Systems/Scholarship.Api.History/Dockerfile
 

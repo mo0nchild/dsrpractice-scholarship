@@ -9,7 +9,7 @@ namespace Scholarship.Service.Loans.Infrastructure
 {
     public interface ILoanService
     {
-        public Task<List<LoanModel>> GetLoansFromUuid(Guid clientUuid);
+        public Task<List<LoanModel>> GetLoansByUser(Guid clientUuid);
         public Task CreateLoan(CreateLoanModel loanInfo);
         public Task CloseLoan(CloseLoanModel loanInfo);
         public Task<bool> CheckLoanOwner(Guid loanUuid, Guid userUuid);

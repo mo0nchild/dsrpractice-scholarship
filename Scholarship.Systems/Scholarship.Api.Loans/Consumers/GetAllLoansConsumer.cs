@@ -23,6 +23,7 @@ namespace Scholarship.Api.Loans.Consumers
                     Uuid = item.Uuid,
                     ClientUuid = item.ClientUuid,
                     OpenTime = item.OpenTime,
+                    ClosedTime = item.CloseTime,
                     CreditorName = item.Creditor.Name,
                     CreditorPatronymic = item.Creditor.Patronymic,
                     CreditorSurname = item.Creditor.Surname,

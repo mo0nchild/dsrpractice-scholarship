@@ -38,13 +38,13 @@
 		},
 		{
 			"UpstreamHttpMethod": [ "Get" ],
-			"UpstreamPathTemplate": "/api/history/{url}",
-			"DownstreamPathTemplate": "/history/{url}",
+			"UpstreamPathTemplate": "/{url}",
+			"DownstreamPathTemplate": "/{url}",
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
 				{
-					"Host": "scholarship.history",
-					"Port": 8080
+					"Host": "scholarship.webui",
+					"Port": 4173
 				}
 			]
 		}

@@ -10,3 +10,29 @@
 	display: flex;
 	flex-flow: column nowrap;
 }
+.tab-content {
+	height: 80%;
+    width: 48% !important;
+    @media (max-width: 600px) {
+        width: 100% !important;
+    }
+    @media (min-width: 600px) and (max-width: 1200px) {
+        width: 66% !important;
+    }
+}
+.nav-link {
+	background-color: var(--app-main-color) !important;
+	color: #FFF !important;
+	border-color: #FFF !important;
+	border-width: 0px !important;
+}
+.nav-link.active {
+	border-width: 1px !important;
+}
+.table td {
+	height: 40px !important;
+	text-wrap: nowrap;
+}
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+	--bs-table-bg-type: transparent;
+}

@@ -34,6 +34,9 @@ export const userSlice = createSlice({
             state.isLoading = false;
             state.error = null;
             state.info = null;
+        },
+        clearError(state) {
+            state.error = null
         }
     }
 });

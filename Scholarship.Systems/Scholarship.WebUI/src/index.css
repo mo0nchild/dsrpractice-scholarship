@@ -13,8 +13,18 @@
 html, body {
 	width: 100%;
 	height: 100%;
-	scrollbar-color: #323232 #282828;
-	scrollbar-width: thin;
+}
+::-webkit-scrollbar{
+    height: 4px;
+    width: 4px;
+}
+::-webkit-scrollbar-track {
+	background: transparent; 
+	padding: 10px;
+}
+::-webkit-scrollbar-thumb {
+	background: #FFF;
+	border-radius: 2px; 
 }
 p, label, span {
 	margin: 0px;

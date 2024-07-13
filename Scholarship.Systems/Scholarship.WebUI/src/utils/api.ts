@@ -26,8 +26,9 @@ $api.interceptors.response.use(config => config, async (requestError) => {
         originalRequest._isRetry = true;
         try {
             const refreshToken = appStorage.getItem(refreshTokenKey);
-            const response = await axios.get<IAuthResponse>(`${refreshUrl}?token=${refreshToken}`);
-            
+            const response = await $api.get<IAuthResponse>(refreshUrl, {
+                params: { token: refreshToken },
+            });
             console.log(response);
             appStorage.setItem(accessTokenKey, response.data.accessToken);
             appStorage.setItem(refreshTokenKey, response.data.refreshToken);

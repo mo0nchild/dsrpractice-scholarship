@@ -6,7 +6,23 @@ export default function Header() : React.JSX.Element {
     const userInfo = useAppSelector(item => item.user.info);
     return (
         <div className={style['header-content']}>
-            <p>Учет займов</p>
+            <div className={style['header-navigation']}>
+                <div>Учет займов</div>
+                <div>
+                {
+                    userInfo != null 
+                        ? <Link to={'/loans'}>Займы</Link>
+                        : null
+                }
+                </div>
+                <div>
+                {
+                    userInfo != null && userInfo.roleName.toLowerCase() == 'admin'
+                        ? <Link to={'/admin'}>Админ</Link>
+                        : null
+                }
+                </div>
+            </div>
             <div>
             { 
                 userInfo != null 

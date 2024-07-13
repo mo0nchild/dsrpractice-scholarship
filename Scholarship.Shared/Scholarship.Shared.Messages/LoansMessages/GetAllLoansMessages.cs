@@ -19,6 +19,7 @@ namespace Scholarship.Shared.Messages.LoansMessages
 
             public DateOnly OpenTime { get; set; } = default!;
             public DateOnly BeforeTime { get; set; } = default!;
+            public DateOnly? ClosedTime { get; set; } = default!;
 
             public string CreditorSurname { get; set; } = string.Empty;
             public string CreditorName { get; set; } = string.Empty;
